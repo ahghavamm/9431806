@@ -8,16 +8,22 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 .container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.resturantList{
+    background-color: pink;
+    width: 600px;
+    height: 300px;
+    margin:10% 30%;
 }
 
 </style>
@@ -25,6 +31,10 @@
 </head>
 
 <body>
+
+<div class="resturantList">
+    <?php include '../php/myPhp.php';?>
+</div>
 
 <div class="category">
     <form>
