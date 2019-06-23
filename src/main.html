@@ -7,6 +7,46 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../assets/main.css">
+<style>
+.dropdown {
+  float: left;
+  overflow: hidden;
+}   
+.dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-top:1px solid black;
+  text-align: left;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+</style>
 <title>سفارش آنلاین غذا از بهترین رستوران ها و فست فود ها | ریحون</title>
 </head>
 
@@ -36,10 +76,15 @@
                 <p>برای دیدن لیست رستوران ها و فست فود هایی که به شما سرویس می دهند، منطقه خود را وارد کنید.</p>
             </div>
             <div class="searchOfSearch">
-            	<form class="searchForm" method="GET" action="../php/myPhp.php">
+            	<form class="searchForm" method="GET" action="../php/resturantsList.php">
                 	<button type="submit" class="w3-padding w3-xlarge w3-text-white"><i class="fa fa-search"></i></button>
                     <input type="text" placeholder="مثلا نیاوران" name="area">
-                    <input type="text" class="searchOfCity" value="تهران &#9660;">
+                    <input type="text" class="searchOfCity" value="تهران &#9660;" onclick="myFunction()" >
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
                 </form>
         	</div>
             <h6><a href="#">آخرین جستوجو: تهران ، شیخ هادی ، چهاراه ولیعصر</a></h6>
@@ -295,6 +340,21 @@
 </div>
 
 <script src="../js/main.js"></script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.searchOfCity')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
 
 </body>
 </html>

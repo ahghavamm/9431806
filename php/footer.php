@@ -1,5 +1,4 @@
 <style>
-
 .footer{
 	width:auto;
 	height:250%;
@@ -70,10 +69,10 @@
 	padding-right:42%;	
 }
 .copyRightFooter{
-	background-color:#191919;
 	width:auto;
 	height:35%;	
 	color:#9a9a9a;
+	background-color:#191919;
 }
 .copyRightFooter .socialNetworkCopyRightFooter{
 	width:75%;
@@ -81,15 +80,17 @@
 	float:left;
 	padding-left:20px;
 	text-align:left;
+	background-color:#191919;
 }
 .copyRightFooter .socialNetworkCopyRightFooter img{
 	width:30px;
+	background-color:#191919;
 }
 .copyRightFooter .copyRightCopyRightFooter{
 	width:25%;
 	height:100%;	
 	float:left;
-	
+	background-color:#191919;
 }
 .copyRightCopyRightFooter p{
 	text-align:right;
@@ -97,6 +98,8 @@
 	font-size:14px;
 	direction:ltr;
 	padding-right:5%;
+	background-color:#191919;
+	padding-bottom:1.25%;
 }
 
 </style>

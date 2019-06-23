@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../assets/divResturantsList.css">
 <?php
 
 $area= $_REQUEST["area"];
@@ -32,15 +33,23 @@ while($res = mysqli_fetch_assoc($resualt)){
     // show them
     $t=0;
     echo "<div class='properitesOfResturantList'> <img src='".$res["logo"]
-        ."'<h5>".$res["name"]."</h5>"
+        ."' /> <div class='textOfProperitesOfResturantList'> <h3 class='titleOfResturants'>".$res["name"]."</h3>"
         ."<p>".$res["averageRate"]."</p>";
+    echo "<p  style='font-size:10px;color:black;'>";
     while($resCategory = mysqli_fetch_assoc($resualtCategory)){
         echo $resCategory["category_id"]. " &#9679; ";
     }
+    echo "</p>";
     echo "<p>".$category[$t]."</p>"
-        ."<p>".$address[$j]."</p>"
-        ."</div>";    
-
+        ."<p style='font-size:10px;'>".$address[$j]."</p>"
+        ."</div>";  
+    ?>
+        <div class="orderProperitesOfResturantList">
+            <a href='#' class="order">شروع سفارش</a>
+        </div>
+    <?php
+    echo "";
+    echo "</div>";
     mysqli_free_result($resualtCategory);
     mysqli_close($mysqlCategory);
         
@@ -68,6 +77,9 @@ mysqli_close($mysql);
 // }
 // R::close();
 
+//function number of resturants in an area
+
 
 
 ?>
+
