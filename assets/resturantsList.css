@@ -140,6 +140,66 @@ body {
     margin-top:5%;
     margin-left: 5%;
 }
+p{
+    margin:0;
+}
+.properitesOfResturantList{
+    width:30%;
+    height: 60%;
+    background-color: white;
+    border: 1px solid #e2e2e2;
+    margin: 1.5%;
+    float:right;
+    transition: box-shadow .3s;
+}
+.properitesOfResturantList:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+.properitesOfResturantList img{
+    margin-right: 4%;
+    margin-top:3%;
+    margin-left:2%;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    float:right;
+}
+.properitesOfResturantList .textOfProperitesOfResturantList{
+    width:60%;
+    height: 90%;
+    margin-right: 40%;
+}
+.properitesOfResturantList .titleOfResturants{
+    color:black;
+}
+.properitesOfResturantList p .category{
+    font-size: 10px;
+}
+.properitesOfResturantList .backgroundProperitesOfResturantList{
+    background-color: #e2e2e2;
+    width:100%;
+    height: 25%;
+}
+.properitesOfResturantList .orderProperitesOfResturantList{
+    padding-right: 35%;
+    background-color: #fafafa;
+    height: 30%;
+    margin-top:-18%;
+    padding-top: 5%;
+}
+.properitesOfResturantList:hover ~ .order{
+    background-color:#d20f63;
+}
+.properitesOfResturantList .orderProperitesOfResturantList .order{
+    text-decoration: none; 
+    color:#d20f63;
+    width:5%;
+    border:1px solid #d20f63;
+    border-radius: 15px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-right: 10%;
+    padding-left: 10%;
+}
 
 .foooter{
     width:100%;

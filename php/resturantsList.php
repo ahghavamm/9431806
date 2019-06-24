@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/resturantsList.css">
 <title>سفارش غذا</title>
 <script src="https://unpkg.com/vue"></script>
@@ -24,7 +26,8 @@
 </div>
 
 <div class="searchResturants">
-    <input type="text" placeholder="جستوجوی رستوران در این محدوده" class="inputSearchResturants" v-on:keyup.enter="queryForKeywords" v-on:keydown="queryForKeywords">
+    <input type="text" placeholder="جستوجوی رستوران در این محدوده" class="inputSearchResturants" v-model="search">
+    {{search}}
     <div class="searchIconSearchResturants"> <i class="fa fa-search"></i></div>
 </div>
 
@@ -34,51 +37,54 @@
         <input type="text" placeholder="جستوجوی دسته بندی غذاها" class="searchInCategory">
         <form>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_0" value="برگر" />
+                <input type="checkbox" name="category_0" value="برگر" v-model="search.typeOfCategories" @click.prevent="get" />
                 &nbsp; برگر
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_1" value="خورشت">
+                <input type="checkbox" name="category_1" value="خورشت" v-model="search.typeOfCategories" />
                 &nbsp; خورشت
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_2" value="سالاد" />
+                <input type="checkbox" name="category_2" value="سالاد" v-model="search.typeOfCategories"  />
                 &nbsp; سالاد
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_3" value="ساندویچ">
+                <input type="checkbox" name="category_3" value="ساندویچ" v-model="search.typeOfCategories" />
                 &nbsp; ساندویچ
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_4" value="سوشی" />
+                <input type="checkbox" name="category_4" value="سوشی" v-model="search.typeOfCategories"  />
                 &nbsp; سوشی
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_5" value="غذای ایرانی">
+                <input type="checkbox" name="category_5" value="غذای ایرانی" v-model="search.typeOfCategories" />
                 &nbsp; غذای ایرانی
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_6" value="فست فود" />
+                <input type="checkbox" name="category_6" value="فست فود" v-model="search.typeOfCategories"  />
                 &nbsp;فست فود
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_7" value="پاستا">
+                <input type="checkbox" name="category_7" value="پاستا" v-model="search.typeOfCategories" />
                 &nbsp; پاستا
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_8" value="پیتزا" />
+                <input type="checkbox" name="category_8" value="پیتزا" v-model="search.typeOfCategories"  />
                 &nbsp; پیتزا
             </lable>
             <lable class="container">&nbsp;
-                <input type="checkbox" name="category_9" value="کباب">
+                <input type="checkbox" name="category_9" value="کباب" v-model="search.typeOfCategories" />
                 &nbsp; کباب
             </lable>
             <a href="#">بیشتر</a>
+            <!-- <ul>
+                <li v-for="typeOfCategory in search.typeOfCategories">{{typeOfCategory}}</li>
+            </ul>    -->
         </form>
     </div>
 
     <div class="resturantList">
-        <?php include 'myPhp.php'; ?>
+        <!-- <?php include 'myPhp.php'; ?> -->
     </div>
 </div>
 
@@ -112,7 +118,44 @@ function numberOfResturants($area){
 }
 ?>
 
-<script src="../js/ResturantsList.js"></script>
+<script src="../js/vuejs-playlist/src/main.js"></script>
+
+<script>
+
+
+
+var appSearchRestuatants = new Vue({
+    el: '.searchResturants',
+    data: {
+        search:''
+    },
+    
+});
+
+// categories
+var appCategories = new Vue({
+    el: '.category',
+    
+    data: {
+        search:{
+            typeOfCategories: [],
+        }
+    },
+});
+
+// resturantsList
+var appResturantsList = new Vue({
+    el: '.resturantList',
+    data: {
+        eachResturants: []
+    },
+    created(){
+        this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
+            this.eachResturants = data.body.slice(0,10);
+        })
+    }
+});
+</script>
 
 </body>
 </html>

@@ -32,24 +32,25 @@ while($res = mysqli_fetch_assoc($resualt)){
     
     // show them
     $t=0;
-    echo "<div class='properitesOfResturantList'> <img src='".$res["logo"]
+   
+    echo json_encode("<div class='properitesOfResturantList'> <img src='".$res["logo"]
         ."' /> <div class='textOfProperitesOfResturantList'> <h3 class='titleOfResturants'>".$res["name"]."</h3>"
-        ."<p>".$res["averageRate"]."</p>";
-    echo "<p  style='font-size:10px;color:black;'>";
+        ."<p>".$res["averageRate"]."</p>");
+    echo json_encode("<p  style='font-size:10px;color:black;'>");
     while($resCategory = mysqli_fetch_assoc($resualtCategory)){
-        echo $resCategory["category_id"]. " &#9679; ";
+        echo json_encode($resCategory["category_id"]. " &#9679; ");
     }
-    echo "</p>";
-    echo "<p>".$category[$t]."</p>"
+    echo json_encode("</p>");
+    echo json_encode("<p>".$category[$t]."</p>"
         ."<p style='font-size:10px;'>".$address[$j]."</p>"
-        ."</div>";  
+        ."</div>");  
     ?>
         <div class="orderProperitesOfResturantList">
             <a href='#' class="order">شروع سفارش</a>
         </div>
     <?php
-    echo "";
-    echo "</div>";
+    echo json_encode("");
+    echo json_encode("</div>");
     mysqli_free_result($resualtCategory);
     mysqli_close($mysqlCategory);
         
