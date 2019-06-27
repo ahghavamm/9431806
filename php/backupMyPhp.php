@@ -11,6 +11,7 @@ $query2 = "SELECT addressLine FROM Address WHERE area='$area'";
 $resualt2 = mysqli_query($mysql2, $query2) or die(mysqli_error($mysqlq));
 while($co = mysqli_fetch_assoc($resualt2)){
     $address[$j]=$co["addressLine"];
+    echo $co["addressLine"];
     $j++;
 }
 mysqli_free_result($resualt2);
@@ -32,25 +33,20 @@ while($res = mysqli_fetch_assoc($resualt)){
     
     // show them
     $t=0;
-   
-    echo "<div class='properitesOfResturantList'> <img src='".$res["logo"]
-        ."' /> <div class='textOfProperitesOfResturantList'> <h3 class='titleOfResturants'>".$res["name"]."</h3>"
-        ."<p>".$res["averageRate"]."</p>";
-    echo "<p  style='font-size:10px;color:black;'>";
-    while($resCategory = mysqli_fetch_assoc($resualtCategory)){
-        echo $resCategory["category_id"]. " &#9679; ";
-    }
-    echo "</p>";
-    echo "<p>".$category[$t]."</p>"
-        ."<p style='font-size:10px;'>".$address[$j]."</p>"
-        ."</div>";  
-    ?>
-        <div class="orderProperitesOfResturantList">
-            <a href='#' class="order">شروع سفارش</a>
-        </div>
-    <?php
-    echo "";
-    echo "</div>";
+    
+    $showJson = array(
+        "sa" => 'saa',
+        "logo" => $res["logo"],
+        "name" => $res["name"],
+        "averageRate" => $res["averageRate"],
+        "category" => $category[$t],
+        "address" => $address[$j],
+    );
+    // while($resCategory = mysqli_fetch_assoc($resualtCategory)){
+    //     echo $resCategory["category_id"]. " &#9679; ";
+    // }
+    echo json_encode($showJson);
+
     mysqli_free_result($resualtCategory);
     mysqli_close($mysqlCategory);
         
@@ -60,25 +56,6 @@ mysqli_free_result($resualt);
 mysqli_close($mysql);
 
 
-// R::setup('mysql:host=localhost;dbname=ProjectOfReyhoon', 'root', '1234');
-// R::wipe('category');
-// $category = R::dispense('category');
-// $category->id = "shandiz";
-// $category->name = "shandiz";
-// $idOne = R::store($category);
-
-// $category = R::dispense('category');
-// $category->id = "khaneye pizaa";
-// $id2 = R::store($category);
-
-// echo $idOne."salam ".$id2;
-// $allCategories = R::find('category');
-// foreach($allCategories as $b){
-//     echo "name of resturant: ".$b->id."\n";
-// }
-// R::close();
-
-//function number of resturants in an area
 
 
 

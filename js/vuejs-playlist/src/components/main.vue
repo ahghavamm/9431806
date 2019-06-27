@@ -1,22 +1,7 @@
 <template>
   <div id="app-main">
     <div class="main">
-        <div class="header">
-            <div class="headerList">
-                <ul>
-                    <li><a href="login.html">ورود</a></li>
-                    <li></li>
-                    <li><a href="register.html">عضویت</a></li>
-                </ul>
-                
-                <ul>
-                    <li><div class="inBlockBox"></div></li>
-                    <li><a href="/">راهنما</a></li>
-                </ul>
-            </div>
-            <div class="borderOfHeaderList">
-            </div>
-        </div>
+        <!-- header -->
 
         <div class="search">
             <div class="searchBox">
@@ -25,10 +10,10 @@
                     <p>برای دیدن لیست رستوران ها و فست فود هایی که به شما سرویس می دهند، منطقه خود را وارد کنید.</p>
                 </div>
                 <div class="searchOfSearch">
-                    <form class="searchForm" method="GET" action="../../../../php/resturantsList.php">
+                    <form class="searchForm" method="GET">
                         <button type="submit" class="w3-padding w3-xlarge w3-text-white"><i class="fa fa-search"></i></button>
                         <input type="text" placeholder="مثلا نیاوران" name="area">
-                        <input type="text" class="searchOfCity" value="تهران &#9660;" onclick="myFunction()" >
+                        <input type="text" class="searchOfCity" value="تهران &#9660;" >
                         <div class="dropdown-content" id="myDropdown">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>
@@ -137,6 +122,8 @@
             </a>
     	</div>
     </div>
+    
+    
     <div class="resturants">
     	<h6>رستوران های خوب تهران در ریحون</h6>
     	<div class="logoResturants">
@@ -482,6 +469,9 @@ export default {
         blogs:[],
     }
   },
+  methods: {
+      
+  },
     
 }
 </script>
@@ -640,6 +630,7 @@ form.searchForm input[type=text].searchOfCity{
 }
 
 .infoBestResturants{
+    margin-top: 20%;
 	background-color:#fafafa;
 	width:auto;
 	height:200%;	
@@ -668,8 +659,8 @@ form.searchForm input[type=text].searchOfCity{
 }
 .boxInfroramtion .informationBoxInformation img{
 	float:right;
-	width:28%;
-	padding-top:2%;
+	width:25%;
+	padding-top:-2%;
 }
 .boxInfroramtion .informationBoxInformation p{
 	font-size:10px;
@@ -681,7 +672,7 @@ form.searchForm input[type=text].searchOfCity{
 	width:auto;
 	height:200%;
 	background-color:#fafafa;
-	margin-top:-1.75%;
+	margin-top:40%;
 }
 .bestResturantsFromCustomer p{
 	font-size:22px;	

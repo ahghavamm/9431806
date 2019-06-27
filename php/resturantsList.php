@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/resturantsList.css">
 <title>سفارش غذا</title>
 <script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
 
 <div class="searchResturants">
     <input type="text" placeholder="جستوجوی رستوران در این محدوده" class="inputSearchResturants" v-model="search">
-    {{search}}
+    <!-- {{search}} -->
     <div class="searchIconSearchResturants"> <i class="fa fa-search"></i></div>
 </div>
 
@@ -84,7 +85,8 @@
     </div>
 
     <div class="resturantList">
-        <!-- <?php include 'myPhp.php'; ?> -->
+        <?php include 'myPhp.php'; ?>
+        <p>{{staturs}}</p>
     </div>
 </div>
 
@@ -124,36 +126,24 @@ function numberOfResturants($area){
 
 
 
-var appSearchRestuatants = new Vue({
-    el: '.searchResturants',
-    data: {
-        search:''
-    },
-    
-});
-
-// categories
-var appCategories = new Vue({
-    el: '.category',
-    
-    data: {
-        search:{
-            typeOfCategories: [],
-        }
-    },
-});
 
 // resturantsList
 var appResturantsList = new Vue({
     el: '.resturantList',
     data: {
-        eachResturants: []
+        eachResturants: [],
+        staturs: ''
     },
-    created(){
-        this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
-            this.eachResturants = data.body.slice(0,10);
-        })
-    }
+    created: function(){
+        this.loadQuots();
+    },
+    methods: {
+        loadQuots: function(){
+            this.staturs = 'loading..';
+            axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(response => (this.staturs = response.data.bpi));
+        }
+    },
 });
 </script>
 
