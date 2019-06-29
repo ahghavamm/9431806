@@ -1,6 +1,5 @@
 <template>
   <div id="app-footer">
-        
     <div class="footer">
     	<div class="upFooter">
         	<div class="informationFooter">
@@ -82,7 +81,35 @@ body{
 	padding:0;
 	font-family:Shabnam;
 }
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.ttf') format('truetype');
+  font-weight: normal;
+}
 
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.ttf') format('truetype');
+  font-weight: 300;
+}
 body {
     margin: 0;
     font-family: Shabnam, fantasy;
@@ -100,7 +127,7 @@ body {
 	height:250%;
 	background-color:#202020;
 	color:#969696;
-	bottom: 0;
+	/* bottom: 0; */
 }
 .upFooter{
 	width:auto;
@@ -176,18 +203,21 @@ body {
 	height:100%;	
 	float:left;
 	padding-left:20px;
-	text-align:left;
+  text-align:left;
+  background-color:#191919;
 }
 .copyRightFooter .socialNetworkCopyRightFooter img{
 	width:30px;
 }
 .copyRightFooter .copyRightCopyRightFooter{
+  background-color:#191919;
 	width:25%;
 	height:100%;	
 	float:left;
-	
+	padding-bottom: 1.3%;
 }
 .copyRightCopyRightFooter p{
+  background-color:#191919;
 	text-align:right;
 	padding-top:2%;	
 	font-size:14px;

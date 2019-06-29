@@ -13,7 +13,7 @@
                     <li><router-link to="/">راهنما</router-link></li>
                 </ul>
             </div>
-            <div class="borderOfHeaderList">
+            <div class="borderOfHeaderList"> <img src="../../../../mocks/Screen Shot 1398-01-15 at 15.01.32.png" width="100%" />
             </div>
         </div>
     
@@ -44,7 +44,35 @@ body{
 	padding:0;
 	font-family:Shabnam;
 }
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.ttf') format('truetype');
+  font-weight: normal;
+}
 
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.ttf') format('truetype');
+  font-weight: 300;
+}
 body {
     margin: 0;
     font-family: Shabnam, fantasy;
@@ -74,7 +102,8 @@ ul {
 	
 	width:100%;
 	height:50px;	
-	display:block;
+  display:block;
+  padding-bottom: -2%;
 }
 li{
 	float:right;	
@@ -97,8 +126,10 @@ li a:hover{
 }
 .borderOfHeaderList{
 	width:auto;
-	height:4px;
-	/* background-image:url(../../../../mocks/Screen Shot 1398-01-15 at 15.01.32.png); */
+  height:2px;
+  /* margin-top: -5%; */
+  /* background-color: #d20f63; */
+  	/* background-image:url(../../../../mocks/Screen%20Shot%201398-01-15%20at%2015.01.32.png); */
 }
 
 

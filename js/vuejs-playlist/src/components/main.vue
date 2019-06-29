@@ -147,7 +147,8 @@
             </div>
         </div>
     </div>
-    <div class="kindsOfFood">
+    
+	 <div class="kindsOfFood">
     	<div class="photosOfKindsOfFood">
         	<h5>غذا چی میل دارید؟</h5>
             <p>صبحانه ، ناهار ، شام یا هرچیزی که میل دارید را انتخاب کنید</p>
@@ -197,81 +198,6 @@
                 <a href="#"><div class="eachOfNameOfKindsOfFood" id="smallOfNameOfKindsOfFood">هات داگ</div></a>
                 <a href="#"><div class="eachOfNameOfKindsOfFood">آبمیوه</div></a>
         	</div>
-        </div>
-    </div>
-
-    <div class="beforBounce">
-        <div class="bounce">
-            <img src="../../../../mocks/application download link/7.png">
-            <p>ریحون روی موبایل</p>
-            <h6>برای دریافت لینک دانلود اپلیکیشن ریحون،شماره موبایل خود را وارد کنید.</h6>
-            <form class="bounceForm">
-                <button type="submit" class="smsBounceForm">دریافت لینک از طریق sms</button>
-                 <input type="text" placeholder="مثلا 91220530**" name="search">
-            </form>
-            <p class="androidAndIos">اپلیکیشن ریحون برای Android و Ios در دسترس است.</p>
-            <div class="downloadBounceDiv">
-            	<a href="#"><img src="../../../../mocks/application download link/cafebazaar-light.png"></a>
-                <a href="#"><img src="../../../../mocks/application download link/google-play-light.png"></a>
-                <a href="#"><img src="../../../../mocks/application download link/sibapp-light.png"></a>
-                <br />
-                <a href="#"><img src="../../../../mocks/application download link/reyhoon-light.png"></a>
-                <a href="#"><img src="../../../../mocks/application download link/ios-direct-light.png"></a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer">
-    	<div class="upFooter">
-        	<div class="informationFooter">
-            	<p>مراقبت و محافظت از حساب کاربری و رمزعبور هر کاربر بر عهده کاربر است. ریحون سریعترین راه سفارش آنلاین غذا است. منوی عکس‌دار رستوران‌های اطرافتان را بر اساس مکان خود به راحتی مشاهده کنید و سفارش دهید.</p>
-                <a href="#">لیست رستوران ها</a>
-            </div>
-            <div class="linksFooter">
-            	<div class="callingInformationFooter"></div>
-                <h5>تماس با ریحون</h5>
-                <p><a href="#">درباره ریحون</a><br />
-                <a href="#">تماس با ما</a><br />
-                <a href="#">وبلاگ ریحون</a></p>
-            </div>
-            <div class="linksFooter">
-            	<div class="resturantsInformationFooter"></div>
-                <h5>رستوران ها</h5>
-                <p><a href="#">ثبت رستوران</a></p>
-            </div>
-            <div class="linksFooter">
-            	<div class="supportingInformationFooter"></div>
-                <h5>پشتیبانی ریحون</h5>
-                <p><a href="#">سوالات متداول</a><br />
-                <a href="#">تماس با پشتیبان</a><br />
-                <a href="#">قوانین و مقررات</a></p>
-            </div>
-            <div class="linksFooter">
-            	<div class="applicationInformationFooter"></div>
-                <h5>اپلیکشن های موبایل</h5>
-                <p><a href="#"><img src="../../../../mocks/application download link/google-play-dark.png"></a></p>
-                <p><a href="#"><img src="../../../../mocks/application download link/sib-app-dark.png"></a></p>
-                <p><a href="#"><img src="../../../../mocks/application download link/cafebazaar-dark.png"></a></p>
-            </div>
-        </div>
-        <div class="downFooter">
-        	<div class="licenseDownFooter">
-            	<p><a href="#"><img src="../../../../mocks/9e91a300.png"></a>
-                <a href="#"><img src="../../../../mocks/logo.aspx.png"></a></p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="copyRightFooter">
-        <div class="socialNetworkCopyRightFooter">
-        	<p><a href="#"><img src="../../../../mocks/Screen Shot 1398-01-21 at 15.04.59.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><img src="../../../../mocks/Screen Shot 1398-01-21 at 15.04.46.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><img src="../../../../mocks/Screen Shot 1398-01-21 at 15.04.35.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><img src="../../../../mocks/Screen Shot 1398-01-21 at 15.04.19.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><img src="../../../../mocks/Screen Shot 1398-01-21 at 15.04.05.png"></a></p>
-        </div>
-        <div class="copyRightCopyRightFooter">
-        	<p>&copy;&nbsp;2017, Reyhoon, All Rights Reserved.</p>
         </div>
     </div>
 
@@ -487,7 +413,35 @@ body{
 	padding:0;
 	font-family:Shabnam;
 }
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.ttf') format('truetype');
+  font-weight: normal;
+}
 
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.ttf') format('truetype');
+  font-weight: 300;
+}
 body {
     margin: 0;
     font-family: Shabnam, fantasy;
@@ -547,6 +501,7 @@ li a:hover{
 	background:url(../../../../mocks/Pizza.jpg);	
 	background-size:60%;
 	background-repeat: no-repeat;
+	margin-top: 1.25%;
 }
 .searchBox{
 	width:50%;
@@ -739,11 +694,12 @@ form.searchForm input[type=text].searchOfCity{
 .resturants{
 	background: url(../../../../mocks/good-boys.jpg) no-repeat scroll center right / cover;
 	width:auto;
-	height:348%;
+	/* height:348%; */
+	height: 700px;
 	background-repeat: no-repeat;
 	text-align:right;
 	padding-right:5%;
-	margin-top:-0.75%;
+	margin-top:32%;
 }
 .resturants h6{
 	font-weight:bold;
@@ -780,7 +736,7 @@ form.searchForm input[type=text].searchOfCity{
 
 .kindsOfFood{
 	width:100%;
-	height:500%;
+	height:700px;
 	background-color:#f5f9fc;
 	text-align:center;	
 	padding-right:10%;
@@ -879,189 +835,6 @@ form.searchForm input[type=text].searchOfCity{
 }
 .nameOfKindsOfFood a{
 	text-decoration:bold;
-}
-.beforBounce{
-	background-color:#f5f9fc;
-	width:100%;
-	height:200%;	
-}
-.bounce{
-	width:90%;
-	height:100%;
-	background-color:white;	
-	margin-right:3%;
-	padding-right:5%;
-	margin-top:-1.5%;
-}
-.bounce img{
-	float:left;
-	height:140%;
-	margin-top:-7%;
-	margin-left:-15%;
-}
-.bounce p{
-	padding-top:5%;
-	font-size:18px;	
-	text-decoration:bold;
-	color:black;
-}
-.bounce h5{
-	padding-top:3%;
-	font-size:14px;	
-	text-decoration:bold;
-}
-form.bounceForm input[type=text]{
-	padding: 13.5px;
-	padding-right:3%;
-  	font-size: 17px;
-	border: 1px solid #969696;
-	border-bottom-right-radius:50px;
-	border-top-right-radius:50px;
-	float: left;
-	width: 30%;
-    background: #f1f1f1;
-	text-align:right;
-	border-left:none;
-	height:46px;
-}
-form.bounceForm button {
-	float: left;
-	width: 30%;
-	font-size: 17px;
-	border: 1px solid #969696;
-	border-top-left-radius:50px;
-	border-bottom-left-radius:50px;
-	border-right: none;
-	margin-left:1%;
-	background-repeat: no-repeat;
-	cursor:pointer;
-	background: linear-gradient(
-		to right, 
-		#f4112a 0%, 
-		#db1044 25%, 
-		#ad127d 50%, 
-		#9416a0 100%
-	);
-	margin-left:13%;
-	height:46px;
-	color:white;
-}
-.bounce .androidAndIos{
-	font-size:10px;
-	padding-top:5%;
-	color:#969696;
-}
-.bounce .downloadBounceDiv{
-	width:70%;
-	height:28%;
-	float:right;
-	
-}
-.bounce .downloadBounceDiv img{
-	width:25%;
-	height:40%;	
-	margin-left:5%;
-	float:right;
-	margin-top:1%;
-}
-
-.footer{
-	width:auto;
-	height:250%;
-	background-color:#202020;
-	color:#969696;
-}
-.upFooter{
-	width:auto;
-	height:50%;		
-	display: inline-block;
-	padding-right:10%;
-	padding-left:5%;
-}
-.upFooter .informationFooter{
-	float: right;
-	text-align: right;
-	width:35%;
-	padding:3% 1%;
-}
-.upFooter .informationFooter a{
-	color:#5b93fc;
-}
-.upFooter .linksFooter{
-	float: right;
-	width: 15%;
-	padding: 30px 10px;
-	padding-bottom:0px;
-	text-align: center;
-	margin-right:1%;
-}
-.linksFooter .callingInformationFooter{
-	width:100%;
-	height:2px;
-	background-color:#8a17ac;
-}
-.linksFooter .resturantsInformationFooter{
-	width:100%;
-	height:2px;
-	background-color:#d20f63;
-}
-.linksFooter .supportingInformationFooter{
-	width:100%;
-	height:2px;
-	background-color:#fc1224;
-}
-.linksFooter .applicationInformationFooter{
-	width:100%;
-	height:2px;
-	background-color:#fec22d;
-}
-.linksFooter h5{
-	color:white;
-	text-align:right;
-	font-size:14px;
-}
-.linksFooter p{
-	text-align:right;
-		
-}
-.linksFooter a{
-	text-decoration:none;
-}
-.linksFooter img{
-	width:100%;
-	height:20%;	
-}
-.licenseDownFooter{
-	padding-right:42%;	
-}
-.copyRightFooter{
-	background-color:#191919;
-	width:auto;
-	height:35%;	
-	color:#9a9a9a;
-}
-.copyRightFooter .socialNetworkCopyRightFooter{
-	width:75%;
-	height:100%;	
-	float:left;
-	padding-left:20px;
-	text-align:left;
-}
-.copyRightFooter .socialNetworkCopyRightFooter img{
-	width:30px;
-}
-.copyRightFooter .copyRightCopyRightFooter{
-	width:25%;
-	height:100%;	
-	float:left;
-	
-}
-.copyRightCopyRightFooter p{
-	text-align:right;
-	padding-top:2%;	
-	font-size:14px;
-	direction:ltr;
-	padding-right:5%;
 }
 
 </style>
