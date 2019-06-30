@@ -35,11 +35,12 @@
 
         
         <div class="resturantList">
+            <!-- <div v-for="post in posts" :key="post._id"> {{post.city}}</div> -->
             <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog"> 
                 <!-- <img :src='' /> -->
                 <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" > -->
                 <div class='textOfProperitesOfResturantList'> 
-                    <h3 class='titleOfResturants'>{{ blog.city }}</h3>
+                    <h3 class='titleOfResturants'>{{ blog.area }}</h3>
                     <p>{{ blog.body}}</p>
                     <p  style='font-size:10px;color:black;'></p>
                     <p></p>
@@ -61,28 +62,7 @@
 
 <script>
 import axios from 'axios';
-// import PostService from '../PostServices.js';
-
-// const url = 'http://localhost:5000/api/resturants/'
-
-// class PostService {
-//     static getPosts(){
-//         return new Promise(async (resolve, reject) => {
-//             try {
-//                 const res = await axios.get(url);
-//                 const data = res.data;
-//                 resolve(
-//                     data.map(post => ({
-//                         ...post
-//                     }))
-//                 );
-//             } catch (err) {
-//                 reject(err);
-//             }
-//         })
-//     }
-// }
-
+// import PostService from '../PostService.js';
 
 function Resize(){
     var num=10;
@@ -102,6 +82,7 @@ export default {
                 searchOfCategories: '',
                 categories: [],
             },
+            posts: [],
             blogs: [],
             nameOfCategories: [
                 {
@@ -150,17 +131,26 @@ export default {
     }, 
     methods: {
 
+
     },
     // mounted() {
-    //     axios.get('address')
-    //     .then(function(res){
-    //         this.blogs = res.data;
-    //     });
+        // this.blogs = (await PostService.getPosts()).data;
+        // axios.get('address')
+        // .then(function(res){
+        //     this.blogs = res.data;
+        // });
     // },
-    created() {
-        
+    async created() {
+
+        // try {
+        //     this.posts = await PostService.getPosts();
+        //     console.log("terekondi");
+        // } catch (err) {
+        //     console.log("ridi");
+        // }
         this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
             this.blogs = data.body.slice(0,10);
+            console.log(data.body);
         })
     },
     computed: {
@@ -176,17 +166,6 @@ export default {
         },
     },
     
-    
-    // created: function(){
-    //     this.loadQuots();
-    // },
-    // methods: {
-    //     loadQuots: function(){
-    //         this.status = 'loading..';
-    //         axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    //         .then(response => (this.staturs = response.data.bpi));
-    //     }
-    // },
   
 }
 </script>
