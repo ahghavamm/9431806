@@ -11,7 +11,7 @@
                 </div>
                 <div class="searchOfSearch">
                     <form class="searchForm" method="GET">
-                        <button type="submit" class="w3-padding w3-xlarge w3-text-white"><i class="fa fa-search"></i></button>
+                        <button type="submit" class="w3-padding w3-xlarge w3-text-white" @click.prevent="get"><i class="fa fa-search"></i></button>
                         <input type="text" placeholder="مثلا نیاوران" name="area">
                         <input type="text" class="searchOfCity" value="تهران &#9660;" >
                         <div class="dropdown-content" id="myDropdown">
@@ -398,6 +398,9 @@ export default {
   methods: {
       
   },
+//   created() {
+// 	  this.$http.get('http://localhost:8888/php/webClass/9431806/php/backupMyPhp.php?area=');
+//   },
     
 }
 </script>
@@ -458,42 +461,6 @@ body {
 	width:auto;
 	height:200px;	
 }
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-.headerList{
-	
-	width:100%;
-	height:50px;	
-	display:block;
-}
-li{
-	float:right;	
-}
-li a {
-	display: inline-block;
-	color: #323232;
-	text-align: center;
-	padding: 14px ;
-	text-decoration: none;
-}
-li a:hover{
-	color:#d20f63;	
-}
-.inBlockBox{
-	width:40px;	
-	height:50px;
-	margin:0;
-	padding:0;
-}
-.borderOfHeaderList{
-	width:auto;
-	height:4px;
-	/* background-image:url(../../../../mocks/Screen Shot 1398-01-15 at 15.01.32.png); */
-}
-
 
 .search{
 	width:auto;
@@ -502,6 +469,7 @@ li a:hover{
 	background-size:60%;
 	background-repeat: no-repeat;
 	margin-top: 1.25%;
+	/* padding-top: 2%; */
 }
 .searchBox{
 	width:50%;

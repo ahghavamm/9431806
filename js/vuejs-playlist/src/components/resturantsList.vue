@@ -39,7 +39,7 @@
                 <!-- <img :src='' /> -->
                 <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" > -->
                 <div class='textOfProperitesOfResturantList'> 
-                    <h3 class='titleOfResturants'>{{ blog.title }}</h3>
+                    <h3 class='titleOfResturants'>{{ blog.city }}</h3>
                     <p>{{ blog.body}}</p>
                     <p  style='font-size:10px;color:black;'></p>
                     <p></p>
@@ -61,6 +61,28 @@
 
 <script>
 import axios from 'axios';
+// import PostService from '../PostServices.js';
+
+// const url = 'http://localhost:5000/api/resturants/'
+
+// class PostService {
+//     static getPosts(){
+//         return new Promise(async (resolve, reject) => {
+//             try {
+//                 const res = await axios.get(url);
+//                 const data = res.data;
+//                 resolve(
+//                     data.map(post => ({
+//                         ...post
+//                     }))
+//                 );
+//             } catch (err) {
+//                 reject(err);
+//             }
+//         })
+//     }
+// }
+
 
 function Resize(){
     var num=10;
@@ -127,9 +149,16 @@ export default {
         }
     }, 
     methods: {
-         
+
     },
+    // mounted() {
+    //     axios.get('address')
+    //     .then(function(res){
+    //         this.blogs = res.data;
+    //     });
+    // },
     created() {
+        
         this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
             this.blogs = data.body.slice(0,10);
         })

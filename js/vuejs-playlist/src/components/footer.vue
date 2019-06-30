@@ -214,7 +214,7 @@ body {
 	width:25%;
 	height:100%;	
 	float:left;
-	padding-bottom: 1.3%;
+	padding-bottom: 0.65%;
 }
 .copyRightCopyRightFooter p{
   background-color:#191919;

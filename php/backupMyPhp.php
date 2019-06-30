@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="../assets/divResturantsList.css">
 <?php
 
 $area= $_REQUEST["area"];
@@ -11,7 +10,7 @@ $query2 = "SELECT addressLine FROM Address WHERE area='$area'";
 $resualt2 = mysqli_query($mysql2, $query2) or die(mysqli_error($mysqlq));
 while($co = mysqli_fetch_assoc($resualt2)){
     $address[$j]=$co["addressLine"];
-    echo $co["addressLine"];
+    // echo $co["addressLine"];
     $j++;
 }
 mysqli_free_result($resualt2);
@@ -30,12 +29,11 @@ while($res = mysqli_fetch_assoc($resualt)){
     $mysqlCategory = mysqli_connect("localhost", "root", "1234", "ProjectOfReyhoon") or die(mysqli_connect_error());
     $queryCategory = "SELECT category_id FROM CategoryResturant INNER JOIN Restaurant ON CategoryResturant.resturant_id = Restaurant.categories WHERE CategoryResturant.resturant_id = '$resName'";
     $resualtCategory = mysqli_query($mysqlCategory, $queryCategory);
-    
+
     // show them
     $t=0;
     
     $showJson = array(
-        "sa" => 'saa',
         "logo" => $res["logo"],
         "name" => $res["name"],
         "averageRate" => $res["averageRate"],
@@ -45,7 +43,9 @@ while($res = mysqli_fetch_assoc($resualt)){
     // while($resCategory = mysqli_fetch_assoc($resualtCategory)){
     //     echo $resCategory["category_id"]. " &#9679; ";
     // }
-    echo json_encode($showJson);
+    $endres = json_encode($showJson, JSON_UNESCAPED_UNICODE);
+    echo $endres;
+    // echo json_decode($endres);
 
     mysqli_free_result($resualtCategory);
     mysqli_close($mysqlCategory);

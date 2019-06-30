@@ -4,28 +4,28 @@ const mysql = require('mysql');
 // const bodyParser = require('body-parser');
 const app = express();
 
-// mongoose.connect("mongodb://localhost/reyhoon", { useNewUrlParser: true });
-// const db = mongoose.connection;
+mongoose.connect("mongodb://localhost/reyhoon", { useNewUrlParser: true });
+const db = mongoose.connection;
 
-// db.on("error", console.error.bind(console, "connection error:"));
+db.on("error", console.error.bind(console, "connection error:"));
 
-// db.once("open", function() {
-//   console.log("DB connection alive");
-// });
-
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'ProjectOfReyhoon'
-})
-connection.connect(function(error){
-  if(!!error){
-    console.log('error');
-  }else{
-    console.log('connected');
-  }
+db.once("open", function() {
+  console.log("DB connection alive");
 });
+
+// var connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '1234',
+//   database: 'ProjectOfReyhoon'
+// })
+// connection.connect(function(error){
+//   if(!!error){
+//     console.log('error');
+//   }else{
+//     console.log('connected');
+//   }
+// });
 
 // load all files
 // const fs=require('fs');
@@ -34,7 +34,7 @@ connection.connect(function(error){
 // });
 
 app.get('/', (req, res) => res.send('hello world asdf'));
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 5000;
 
 //router
 const foodRouter = require("./routes/api/foodRouter.js");
