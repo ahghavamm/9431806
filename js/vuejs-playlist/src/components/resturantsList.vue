@@ -35,16 +35,15 @@
 
         
         <div class="resturantList">
-            <!-- <div v-for="post in posts" :key="post._id"> {{post.city}}</div> -->
             <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog"> 
                 <!-- <img :src='' /> -->
                 <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" > -->
                 <div class='textOfProperitesOfResturantList'> 
-                    <h3 class='titleOfResturants'>{{ blog.area }}</h3>
+                    <h3 class='titleOfResturants'>{{ blog.city }}</h3>
                     <p>{{ blog.body}}</p>
                     <p  style='font-size:10px;color:black;'></p>
                     <p></p>
-                    <p style='font-size:10px;'></p>
+                    <p style='font-size:10px;'>{{ blog.addressLine }}</p>
                 </div>   
                 <!-- </router-link> -->
                 <router-link :to="'/resturants/eachResturant/' + blog.id" >
@@ -62,7 +61,28 @@
 
 <script>
 import axios from 'axios';
-// import PostService from '../PostService.js';
+// import PostService from '../PostService';
+
+// const url = 'http://localhost:5000/api/resturants/'
+
+// class PostService {
+//     static getPosts(){
+//         return new Promise(async (resolve, reject) => {
+//             try {
+//                 const res = await axios.get(url);
+//                 const data = res.data;
+//                 resolve(
+//                     data.map(post => ({
+//                         ...post
+//                     }))
+//                 );
+//             } catch (err) {
+//                 reject(err);
+//             }
+//         })
+//     }
+// }
+
 
 function Resize(){
     var num=10;
@@ -82,7 +102,6 @@ export default {
                 searchOfCategories: '',
                 categories: [],
             },
-            posts: [],
             blogs: [],
             nameOfCategories: [
                 {
@@ -131,27 +150,24 @@ export default {
     }, 
     methods: {
 
-
     },
     // mounted() {
-        // this.blogs = (await PostService.getPosts()).data;
-        // axios.get('address')
-        // .then(function(res){
-        //     this.blogs = res.data;
-        // });
+    //     axios.get('address')
+    //     .then(function(res){
+    //         this.blogs = res.data;
+    //     });
     // },
-    async created() {
-
-        // try {
-        //     this.posts = await PostService.getPosts();
-        //     console.log("terekondi");
-        // } catch (err) {
-        //     console.log("ridi");
-        // }
-        this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
-            this.blogs = data.body.slice(0,10);
-            console.log(data.body);
+    created() {
+        axios.get(`http://localhost:4000/api/resturant`)
+        .then(response => {
+        this.blogs = response.data
         })
+        .catch(e => {
+        this.errors.push(e)
+        })
+        // this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
+        //     this.blogs = data.body.slice(0,10);
+        // })
     },
     computed: {
         filteredResturants: function(){
@@ -166,6 +182,17 @@ export default {
         },
     },
     
+    
+    // created: function(){
+    //     this.loadQuots();
+    // },
+    // methods: {
+    //     loadQuots: function(){
+    //         this.status = 'loading..';
+    //         axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    //         .then(response => (this.staturs = response.data.bpi));
+    //     }
+    // },
   
 }
 </script>
