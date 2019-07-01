@@ -1,53 +1,13 @@
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const app = express();
-// const port = 3000;
-
-// // app.get("*", function(req, res){
-// //   res.end("hello world", "EXPRESS-STYLE");
-// // });
-
-// app.get("/api/resturants/:resturantid.json", function(req, res){
-//   res.end("you asked for user: " + req.params.resturantid);
-// });
-
-// // app.get("/api", handle_function);
-
-// app.get("*", function(req, res){
-//   send_failure(res, 404, {code: "no_such_page", message:"no such page"});
-// });
-
-// function send_failure(res, server_code, err){
-//   var code = (err.code) ? err.code : err.name;
-//   res.writeHead(server_code, {"Content-Type": "application/json"});
-//   res.end(make_resp_error(err));
-// }
-
-// function make_resp_error(err){
-//   return JSON.stringify({code: (err.code) ? err.code : err.name, message: err.message});
-// }
-
-// app.listen(port);
-
-// mongoose.connect("mongodb://localhost/reyhoon", { useNewUrlParser: true });
-// const db = mongoose.connection;
-
-// db.on("error", console.error.bind(console, "connection error:"));
-
-// db.once("open", function() {
-//   console.log("DB connection alive");
-// });
-
-
-// db.address.find({})
-//    .projection({})
-//    .sort({_id:-1})
-//    .limit(100)
-
 var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var morgan = require('morgan');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var app = express();
+app.use(morgan('tiny'));
+app.use(bodyParser.json());
+app.use(cors());
 
 // MongoClient.connect(url, function(err, db) {
 //   if (err) throw err;
@@ -61,8 +21,11 @@ var app = express();
 
 
 app.get('/', (req, res) => res.send('hello world asdf'));
-app.get('/address', (req, res) => {
-  var query = req.query.page;
+
+app.get('/api/resturant', (req, res) => {
+  //   $_GET["area"]
+  var query = req.query.area;
+  console.log(req.query);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("reyhoon");
@@ -72,7 +35,7 @@ app.get('/address', (req, res) => {
       [
         {$match:
           {
-            area: 'جردن'
+            area: query
           }
         },
         {$lookup:
@@ -118,6 +81,15 @@ app.get('/address', (req, res) => {
     //     // });
     // });
   });
+});
+
+
+app.get('/api/resturant/:id', (req, res) => {
+  res.send(req.params.id);
+});
+
+app.get('*', (req, res) => {
+  res.send('404');
 });
 
 const port = process.env.PORT || 4000;
