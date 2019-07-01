@@ -1,12 +1,19 @@
 <template>
   <div id="show-blogs">
       <p>salam</p>
-        <ul v-if="posts && posts.length">
+        <!-- <ul v-if="posts && posts.length">
             <li v-for="post of posts" :key="post">
             <p><strong>{{post.addressLine}}</strong></p>
             <p>{{post.resturantDeatails}}</p>
             </li>
-        </ul>
+        </ul> -->
+
+        <div v-for="post in posts" :key="post">
+            {{post.addressLine}}
+            <div v-for="resturantDeatail in post.resturantDeatails" :key="resturantDeatail">
+                {{resturantDeatail.name}}
+            </div>
+        </div>
 
         <ul v-if="errors && errors.length">
             <li v-for="error of errors" :key="error">
@@ -28,6 +35,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      showAddresses: [],
       posts: [],
       errors: []
     }

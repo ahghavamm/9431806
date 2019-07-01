@@ -11,14 +11,14 @@
                 </div>
                 <div class="searchOfSearch">
                     <form class="searchForm" method="GET">
-                        <button type="submit" class="w3-padding w3-xlarge w3-text-white" @click.prevent="get"><i class="fa fa-search"></i></button>
-                        <input type="text" placeholder="مثلا نیاوران" name="area">
+						<router-link :to="'/resturants?area=' + searchArea" class="searchRouter w3-padding w3-xlarge w3-text-white" ><i class="fa fa-search"></i></router-link>
+                        <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea">
                         <input type="text" class="searchOfCity" value="تهران &#9660;" >
-                        <div class="dropdown-content" id="myDropdown">
+                        <!-- <div class="dropdown-content" id="myDropdown">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>
                             <a href="#">Link 3</a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <h6><a href="#">آخرین جستوجو: تهران ، شیخ هادی ، چهاراه ولیعصر</a></h6>
@@ -392,7 +392,8 @@ xmlhttp.send();
 export default {
   data () {
     return {
-        blogs:[],
+		blogs:[],
+		searchArea: '',
     }
   },
   methods: {
@@ -495,20 +496,7 @@ body {
 	padding:1.5%;
 	background-color:white;
 }
-form.searchForm input[type=text]{
-	padding: 13.5px;
-  	font-size: 17px;
-	border: 1px solid #969696;
-	border-bottom-right-radius:5px;
-	border-top-right-radius:5px;
-	float: left;
-	width: 69%;
-    background: #f1f1f1;
-	text-align:right;
-	border-left:none;
-	height:46px;
-}
-form.searchForm button {
+.searchRouter{
 	float: left;
 	width: 9%;
 	font-size: 17px;
@@ -523,6 +511,34 @@ form.searchForm button {
 	color:white;
 	height:46px;
 }
+form.searchForm input[type=text]{
+	padding: 13.5px;
+  	font-size: 17px;
+	border: 1px solid #969696;
+	border-bottom-right-radius:5px;
+	border-top-right-radius:5px;
+	float: left;
+	width: 69%;
+    background: #f1f1f1;
+	text-align:right;
+	border-left:none;
+	height:46px;
+}
+/* form.searchForm button {
+	float: left;
+	width: 9%;
+	font-size: 17px;
+	border: 1px solid #969696;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	border-right: none;
+	margin-left:1%;
+	background-repeat: no-repeat;
+	cursor:pointer;
+	background-color:#c01175;
+	color:white;
+	height:46px;
+} */
 form.searchForm::after {
 	content: "";
 	clear: both;

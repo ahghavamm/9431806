@@ -6,7 +6,7 @@
     </div>
 
     <div class="numberOfResturants" id="numberOfResturantsInThisLocation">
-        <p>رستوران امکان سرویس دهی به را دارند&nbsp;</p>
+        <p> رستوران امکان سرویس دهی به <span class="nameOfQuery">{{$route.query.area}}</span> را دارند&nbsp;</p>
     </div>
 
     <div class="searchResturants">
@@ -28,30 +28,47 @@
 
                 <a href="#">بیشتر</a>
                 <ul>
-                    <li v-for="category in search.categories" :key="category.id">{{category}}</li>
+                    <!-- <li v-for="category in search.categories" :key="category.id">{{category}}</li> -->
+                    <li v-for="category in makeCategoryQuery" :key="category.id">{{category}}</li>
                 </ul>   
             </form>
         </div>
 
         
         <div class="resturantList">
-            <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog"> 
+            <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog">
+                <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
+                <div class='textOfProperitesOfResturantList'> 
+                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                        <h3>{{resturantDeatail.name}}</h3>
+                    </span>
+                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                        <p style='font-size:10px;color:black;'>{{resturantDeatail.averageRate}}</p>
+                        <span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span>
+                    </span>
+                    <p style='font-size:10px;'>{{blog.addressLine}}</p>
+                </div>
+                <div class="orderProperitesOfResturantList">
+                    <a href='#' class="order">شروع سفارش</a>
+                </div>
+            </div>
+            <!-- <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog">  -->
                 <!-- <img :src='' /> -->
                 <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" > -->
-                <div class='textOfProperitesOfResturantList'> 
-                    <h3 class='titleOfResturants'>{{ blog.city }}</h3>
-                    <p>{{ blog.body}}</p>
-                    <p  style='font-size:10px;color:black;'></p>
+                <!-- <div class='textOfProperitesOfResturantList'>  -->
+                    <!-- <h3 class='titleOfResturants'>{{ blog.city }}</h3> -->
+                    <!-- <p>{{ blog.body}}</p> -->
+                    <!-- <p  style='font-size:10px;color:black;'></p>
                     <p></p>
                     <p style='font-size:10px;'>{{ blog.addressLine }}</p>
-                </div>   
+                </div>    -->
                 <!-- </router-link> -->
-                <router-link :to="'/resturants/eachResturant/' + blog.id" >
+                <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" >
                     <div class="orderProperitesOfResturantList">
                         <a href='#' class="order">شروع سفارش</a>
                     </div>
                 </router-link>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -102,7 +119,9 @@ export default {
                 searchOfCategories: '',
                 categories: [],
             },
+            errors: [],
             blogs: [],
+            posts: [],
             nameOfCategories: [
                 {
                     "name":'برگر',
@@ -144,55 +163,44 @@ export default {
                     "name":'کباب',
                     "category_name": 'category_9'
                 }],
-
-            // imageOfShandiz: 'https://dist.reyhoon-static.com/uploads/images/restaurants/logos/shandiz-jordan_1485_1520945254.jpeg@!branch_logo_web_default'
         }
     }, 
-    methods: {
-
-    },
-    // mounted() {
-    //     axios.get('address')
-    //     .then(function(res){
-    //         this.blogs = res.data;
-    //     });
-    // },
     created() {
-        axios.get(`http://localhost:4000/api/resturant`)
+        axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area )
         .then(response => {
         this.blogs = response.data
         })
         .catch(e => {
         this.errors.push(e)
         })
-        // this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
-        //     this.blogs = data.body.slice(0,10);
-        // })
     },
     computed: {
         filteredResturants: function(){
             return this.blogs.filter((blog) => {
-                return blog.title.match(this.search.nameOfResturant)
+                return blog.name.match(this.search.nameOfResturant)
             });
         },
+        // filteredResturants: function(){
+        //     return this.blogs.filter((blog) => {
+        //         return blog.addressLine.match(this.search.nameOfResturant)
+        //     });
+        // },
         filteredCategories: function(){
             return this.nameOfCategories.filter((nameOfCategory) => {
                 return nameOfCategory.name.match(this.search.searchOfCategories)
             });
         },
+        // make query to server         checkbox category
+        makeCategoryQuery :function(){
+            return axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area + '&category=' + this.search.categories)
+                    .then(response => {
+                    this.blogs = response.data
+                    })
+                    .catch(e => {
+                    this.errors.push(e)
+                    })
+        }
     },
-    
-    
-    // created: function(){
-    //     this.loadQuots();
-    // },
-    // methods: {
-    //     loadQuots: function(){
-    //         this.status = 'loading..';
-    //         axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    //         .then(response => (this.staturs = response.data.bpi));
-    //     }
-    // },
   
 }
 </script>
@@ -242,6 +250,11 @@ body {
     text-align: right;
     direction: rtl;
     background-color: #fafafa;
+}
+.nameOfQuery{
+    text-decoration: underline;
+    color:black;
+    font-weight: bold;
 }
 .imgOfResturnatsList{
     padding-top:1.25%;
