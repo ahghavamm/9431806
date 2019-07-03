@@ -12,15 +12,27 @@
             </div>
 
             <div class="propertyOfResturant" v-for="resturantDeatail in post.resturantDeatails" :key="resturantDeatail">
-                <h3>{{resturantDeatail.name}} </h3>
-                <p>{{resturantDeatail.averageRate}} </p>
+                <p style="font-size:24px;color:black;padding-top:-15px;">{{resturantDeatail.name}} </p>
+                <p style="color:orange;font-size:20px;padding-top:10px;">
+                    <span v-if="resturantDeatail.averageRate < 5" class="fa fa-star unchecked"></span>
+                    <span v-else="" class="fa fa-star"></span>
+                    <span v-if="resturantDeatail.averageRate < 4" class="fa fa-star unchecked"></span>
+                    <span v-else="" class="fa fa-star"></span>
+                    <span v-if="resturantDeatail.averageRate < 3" class="fa fa-star unchecked"></span>
+                    <span v-else="" class="fa fa-star"></span>
+                    <span v-if="resturantDeatail.averageRate < 2" class="fa fa-star unchecked"></span>
+                    <span v-else="" class="fa fa-star"></span>
+                    <span v-if="resturantDeatail.averageRate < 1" class="fa fa-star unchecked"></span>
+                    <span v-else="" class="fa fa-star"></span>
+                    {{resturantDeatail.averageRate}} 
+                </p>
                 <p class="categoryOfPropertyOfResturant"><span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span></p>
                 <p class="addressOfPropertyOfResturant">{{post.addressLine}}</p>
             </div>
             <div class="menueInformatioComment">
-                <div class="inMenueInformatioComment"><a href="#">منوی رستوران</a></div>
-                <div class="inMenueInformatioComment"><a href="#">اطلاعات رستوران</a></div>
-                <div class="inMenueInformatioComment"><a href="#">نظرات کاربران</a></div>
+                <div class="inMenueInformatioComment"><a href="#menueTab">منوی رستوران</a></div>
+                <div class="inMenueInformatioComment"><a href="#informationTab">اطلاعات رستوران</a></div>
+                <div class="inMenueInformatioComment"><a href="#commentTab">نظرات کاربران</a></div>
             </div>
         </div>
 
@@ -38,10 +50,18 @@
                 </div>
             </div>
             <div class="food">
-                <div class="tableOfFood">
-                    <div v-for="blog in blogs" :key="blog">
+                <a name="menueTab"></a>
+
+                <div v-for="blog in blogs" :key="blog">
+                    <p v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood">
+                        <span v-if="kindOfFood.visible = 'ture'">asdf</span>
+                    </p>
+                </div>
+
+                <div class="tableOfFood" v-for="blog in blogs" :key="blog">
+                    <div> 
                         <a href="#">
-                        <div class="eachFood" v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood">
+                        <div class="eachFood" v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood" >
                             <p id="name">{{kindOfFood.name}}</p>
                             <div class="priceDiv"><p id="price">{{kindOfFood.price}} تومان</p></div>
                             <p id="description"><br />{{kindOfFood.description}}</p>
@@ -62,24 +82,80 @@
         </div> -->
 
         <div class="inform">
+            <a name="informationTab"></a>
             <div class="information"><h3>اطلاعات رستوران</h3></div>
             <div class="informationAndHours" v-for="post in posts" :key="post">
                 <p class="nameOfInformation"><span  v-for="resturantDeatail in post.resturantDeatails" :key="resturantDeatail">{{resturantDeatail.name}}</span></p>
-                <p class="addressOfInformation">{{post.addressLine}}</p>
-                <p class="orderOfInformation">ساعات سفارش گیری</p>
+                <p class="addressOfInformation"><i class="material-icons">place</i>&nbsp;{{post.addressLine}}</p>
+                <p class="orderOfInformation"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;ساعات سفارش گیری</p>
                 <p class="everydayInformation">همه روزه</p>
                 <p class="openingTimeInformation" v-for="resturantDeatail in post.resturantDeatails" :key="resturantDeatail">از {{resturantDeatail.openingTime}} ظهر تا {{resturantDeatail.closingTime}} شب</p>
             </div>
         </div>
 
-        <!-- <div class="" v-for="comment in comments" :key="comment">
-            <span v-for="commentPropertie in comment.commentProperties" :key="commentPropertie">{{commentPropertie.text}}</span>
-        </div> -->
+        <div class="comment"  v-for="comment in comments" :key="comment">
+            <a name="commentTab"></a>
+            <div class="commentTitle"><h3>نظر کاربران در مورد {{comment.name}}</h3></div>
+            <p class="anotherCommentTitle">شما می توانید بعد از سفارش از این رستوران، نظر خود را در باره ی این رستوران ثبت کنید.</p>
+            <p class="starInComment">
+                <span v-if="comment.averageRate < 5" class="fa fa-star unchecked"></span>
+                <span v-else="" class="fa fa-star"></span>
+                <span v-if="comment.averageRate < 4" class="fa fa-star unchecked"></span>
+                <span v-else="" class="fa fa-star"></span>
+                <span v-if="comment.averageRate < 3" class="fa fa-star unchecked"></span>
+                <span v-else="" class="fa fa-star"></span>
+                <span v-if="comment.averageRate < 2" class="fa fa-star unchecked"></span>
+                <span v-else="" class="fa fa-star"></span>
+                <span v-if="comment.averageRate < 1" class="fa fa-star unchecked"></span>
+                <span v-else="" class="fa fa-star"></span>
+                &nbsp;{{comment.averageRate}}
+            </p>
+            <div class="qualityOfFoods">
+                <p>کیفیت غذا <span class="numOfQualityOfFoods">3.7</span></p>
+                <div class="numberOfQualityOfFoods"><div class="shapeOfNumberOfQualityOfFoods1"></div></div>
+            </div>
+            <div class="qualityOfFoods">
+                <p>کیفیت بسته بندی <span class="numOfQualityOfFoods">4.7</span></p>
+                <div class="numberOfQualityOfFoods"><div class="shapeOfNumberOfQualityOfFoods2"></div></div>
+            </div>
+            <div class="qualityOfFoods">
+                <p>سرعت ارسال پیک <span class="numOfQualityOfFoods">4.4</span></p>
+                <div class="numberOfQualityOfFoods"><div class="shapeOfNumberOfQualityOfFoods3"></div></div>
+            </div>
+            <div class="qualityOfFoods">
+                <p>برخورد پیک <span class="numOfQualityOfFoods">4.1</span></p>
+                <div class="numberOfQualityOfFoods"><div class="shapeOfNumberOfQualityOfFoods4"></div></div>
+            </div>
+        </div>
+
+        <div class="eachOfClientComment" v-for="comment in comments" :key="comment">
+            <div class="clientComment" v-for="commentPropertie in comment.commentProperties" :key="commentPropertie"> 
+                <p>{{commentPropertie.author}} 
+                    <span class="rateOfClientComment">
+                        &nbsp; {{commentPropertie.quality}} &nbsp;
+                        <span v-if="commentPropertie.quality < 5" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="commentPropertie.quality < 4" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="commentPropertie.quality < 3" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="commentPropertie.quality < 2" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="commentPropertie.quality < 1" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                    </span>
+                </p>
+                <p class="textOfClientComment"><i class="fa fa-quote-right" style="font-size:18px; color:#d20f63;"></i> &nbsp;&nbsp; {{commentPropertie.text}} </p>
+                <p style="font-size:10px;"> روز قبل<span class="rateOfClientComment" style="color:#777777; font-size:10px;">گزارش</span></p>
+            </div>
+        </div>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import moment from 'vue-moment';
 
 export default {
     data () {
@@ -110,13 +186,13 @@ export default {
         })
 
         //  comments
-        // axios.get(`http://localhost:4000/api/resturants/`+ this.id + '/comments')
-        // .then(responses => {
-        //     this.posts = responses.data
-        // })
-        // .catch(e => {
-        //     this.errors.push(e)
-        // })
+        axios.get(`http://localhost:4000/api/resturant/`+ this.id + `/comments`)
+        .then(responses => {
+            this.comments = responses.data
+        })
+        .catch(e => {
+            this.errors.push(e)
+        })
     },
 }
 </script>
@@ -184,32 +260,48 @@ body {
     text-align: center;
     margin-top: -15%;
 }
+.titleOfResturant .unchecked{
+    color:black;
+}
 .nameOfResturant{
     width: 30%;
-    height: 10%;;
+    height: 10%;
     background-color: white;
     float: right;
     color:#aba5a4;
     font-size: 11px;
-    margin-top: -100px;
+    margin-top: -90px;
+    border-radius: 4px;
 }
 .photoOfResturant{
     border:1px solid white;
+    width: 80px;
+    margin-right: 44%;
+}
+.photoOfResturant img{
+    margin-top:-30px;
 }
 .previous{
     width: 10%;
-    height: 10%;;
-    background-color:aqua;
+    height: 10%;
+    background-color:white;
     float: left;
     color:#aba5a4;
     font-size: 11px;
-    /* margin-right: 10px; */
+    margin-top: -35px;
+    border-radius: 4px;
+}
+.propertyOfResturant{
+    padding-top: 10px;
 }
 .categoryOfPropertyOfResturant{
+    padding-top: 10px;
     color: black;
 }
 .addressOfPropertyOfResturant{
+    padding-top: 10px;
     color:#4a4a4a;
+    padding-bottom: 10px;
 }
 .menueInformatioComment{
     color: #777777;
@@ -400,6 +492,119 @@ input[type= text]:focus{
     font-size: 12px;
     text-align: left;
     padding-left: 5px;
-    margin-top: -35px;
+    margin-top: -25px;
 }
+.comment{
+    width:60%;
+    height: 600px;
+    margin-right: 20%;
+    padding-top:2%;
+    background-color: #fafafa;
+}
+.comment .commentTitle{
+    width:100%;
+    height: 60px;
+    /* background-color:#f0f0f0; */
+    border-bottom: 1px solid #656566;
+    padding-right: 50px;
+    padding-top: 5px;
+    color:black;
+    font-weight: bold;
+}
+.comment .anotherCommentTitle{
+    padding-top:20px;
+    font-size: 13px;
+    padding-bottom: 30px;
+}
+.starInComment{
+    padding-top:20px;
+    text-align: center;
+    color:orange;
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+.starInComment .unchecked{
+    color:black;
+}
+.qualityOfFoods{
+    width: 70%;
+    margin-left: 10%;
+    margin-right: 15%;
+    padding:0.5px;
+    text-align: left;
+    color: #777777;
+    font-size: 15px;
+    border-top: 1px solid #656566;
+    margin-top:15px;
+    padding-top:10px;
+}
+.qualityOfFoods .numOfQualityOfFoods{
+    color:orange;
+    text-align: right;
+    float: right;
+    padding-right: 71%;
+}
+.qualityOfFoods .numberOfQualityOfFoods{
+    width:70%;
+    background-color: #aba5a4;
+    height: 10px;
+    float:right;
+    margin-top: -20px;
+    border-radius: 10px;
+}
+.qualityOfFoods .numberOfQualityOfFoods .shapeOfNumberOfQualityOfFoods1{
+    width: 65%;
+    height: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    float: left;
+}
+.qualityOfFoods .numberOfQualityOfFoods .shapeOfNumberOfQualityOfFoods2{
+    width: 95%;
+    height: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    float: left;
+}
+.qualityOfFoods .numberOfQualityOfFoods .shapeOfNumberOfQualityOfFoods3{
+    width: 85%;
+    height: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    float: left;
+}
+.qualityOfFoods .numberOfQualityOfFoods .shapeOfNumberOfQualityOfFoods4{
+    width: 70%;
+    height: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    float: left;
+}
+.clientComment{
+    width:60%;
+    height: 150px;
+    border-top: 1px solid #656566;
+    margin-right: 20%;
+    padding-top:15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.clientComment .rateOfClientComment{
+    color:orange;
+    float:left;
+}
+.clientComment .rateOfClientComment .unchecked{
+    color:black;
+}
+.clientComment .textOfClientComment{
+    color:#777777;
+    font-size: 12px;
+    margin-top:45px;
+    margin-right: 10px;
+}
+/* .clientComment .eachOfClientComment{
+    width:100%;
+    height: 150px;
+    border-top: 1px solid #656566;
+} */
 </style>

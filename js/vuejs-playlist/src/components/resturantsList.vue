@@ -20,7 +20,6 @@
             <p>فیلتر بر اساس نوع غذا</p>
             <input type="text" placeholder="جستوجوی دسته بندی غذاها" class="searchInCategory" v-model="search.searchOfCategories">
             <form>
-                <!-- type of categories (right box) -->
                 <lable class="container" v-for="nameOfCategory in filteredCategories" :key="nameOfCategory">&nbsp;
                 <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories"/>
                 &nbsp; {{nameOfCategory.name}}
@@ -28,7 +27,6 @@
 
                 <a href="#">بیشتر</a>
                 <ul>
-                    <!-- <li v-for="category in search.categories" :key="category.id">{{category}}</li> -->
                     <li v-for="category in makeCategoryQuery" :key="category.id">{{category}}</li>
                 </ul>   
             </form>

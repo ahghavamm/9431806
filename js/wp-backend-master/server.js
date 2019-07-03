@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var re
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var app = express();
@@ -115,6 +116,23 @@ app.get('/api/resturant', (req, res) => {
   });
 });
 
+app.get('/api/hint', (req, res) => {
+  //   $_GET["area"]
+  var query = req.query.areas;
+
+  console.log(req.query);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+    var dbo1 = db.db("reyhoon");
+
+    dbo.collection("address").find({area: { query}).toArray(function(err, result) {
+          if (err) throw err;
+          console.log(result);
+          db.close();;
+  });
+});
+
 
 app.get('/api/resturant/:id', (req, res) => {
   var query = req.params.id;
@@ -217,6 +235,38 @@ app.get('/api/resturants/:id', (req, res) => {
       });
 });
 
+app.get('/api/resturants/:id/averageRate', (req, res) => {
+  var query = req.params.id;
+  console.log(req.params.id);
+  const ObjectId = mongoose.Types.ObjectId;
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("reyhoon");
+  
+      dbo.collection("comment").aggregate(
+        [
+          {$match:
+            {
+              resturantId: ObjectId(query)
+            }
+          },
+          {$lookup:
+            {
+              from: 'resturant',
+              localField: 'resturantId',
+              foreignField: 'comments',
+              as: 'rateNumber'
+            }
+        }
+        ]).toArray(function(err, resault){
+          if (err) throw err;
+          res.json(resault);
+          db.close();
+        });
+      });
+});
+
 
 app.get('/api/resturant/:id/comments', (req, res) => {
   var query = req.params.id;
@@ -252,6 +302,7 @@ app.get('/api/resturant/:id/comments', (req, res) => {
 });
 
 app.post('/api/resturant/:id/comments', urlencodeParser, (req, res) => {
+  const ObjectId = mongoose.Types.ObjectId;
   console.log(req.body);
   res.send({
     type: 'post',
@@ -260,7 +311,8 @@ app.post('/api/resturant/:id/comments', urlencodeParser, (req, res) => {
     packaging: req.body.packaging,
     deliveryTime: req.body.deliveryTime,
     text: req.body.text,
-    created_at: new Date
+    created_at: new Date,
+    resturantId: req.params.id
   });
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -272,7 +324,8 @@ app.post('/api/resturant/:id/comments', urlencodeParser, (req, res) => {
       packaging: req.body.packaging,
       deliveryTime: req.body.deliveryTime,
       text: req.body.text,
-      created_at: new Date
+      created_at: new Date,
+      resturantId: ObjectId(req.params.id)
     });
   });
 

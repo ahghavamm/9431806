@@ -89,7 +89,7 @@ body {
 	width:auto;
 	height:200px;	
 }
-ul {
+.headerList ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -105,17 +105,17 @@ ul {
   display:block;
   padding-bottom: -2%;
 }
-li{
+.headerList li{
 	float:right;	
 }
-li a {
+.headerList li a {
 	display: inline-block;
 	color: #323232;
 	text-align: center;
 	padding: 14px ;
 	text-decoration: none;
 }
-li a:hover{
+.headerList li a:hover{
 	color:#d20f63;	
 }
 .inBlockBox{

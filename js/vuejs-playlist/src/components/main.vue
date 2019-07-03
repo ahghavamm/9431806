@@ -12,9 +12,18 @@
                 <div class="searchOfSearch">
                     <form class="searchForm" method="GET">
 						<router-link :to="'/resturants?area=' + searchArea" class="searchRouter w3-padding w3-xlarge w3-text-white" ><i class="fa fa-search"></i></router-link>
-                        <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea">
-                        <input type="text" class="searchOfCity" value="تهران &#9660;" >
-                        <!-- <div class="dropdown-content" id="myDropdown">
+                        <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea" v-on:keyup="areaHint">
+                        <input type="text" class="searchOfCity btn dropdown-toggle" id="menu1" data-toggle="dropdown" value="تهران" >
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="dropdownMenue">
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">تهران</a></li>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">اصفهان</a></li>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">شیراز</a></li>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">مشهد</a></li>    
+						</ul>
+						<!-- <div class="dropdown-content" id="myDropdown">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>
                             <a href="#">Link 3</a>
@@ -205,7 +214,11 @@
 </template>
 
 <script>
+import axios from 'axios';
 
+$(document).ready(function(){
+  $(".dropdown-toggle").dropdown();
+});
 
 //						ajax by reciving xml
 var xmlhttp = new XMLHttpRequest();
@@ -394,10 +407,19 @@ export default {
     return {
 		blogs:[],
 		searchArea: '',
+		hints:[]
     }
   },
   methods: {
-      
+      areaHint: function(){
+		  axios.get(`http://localhost:4000/api/hint/`+ this.searchArea )
+				.then(response => {
+				this.hints = response.data
+				})
+				.catch(e => {
+				this.errors.push(e)
+				})
+	  }
   },
 //   created() {
 // 	  this.$http.get('http://localhost:8888/php/webClass/9431806/php/backupMyPhp.php?area=');
@@ -495,6 +517,11 @@ body {
 	border-radius:5px;	
 	padding:1.5%;
 	background-color:white;
+}
+.searchOfSearch #dropdownMenue{
+	margin-top: -131px;
+	margin-left: 465px;
+	text-align: center;
 }
 .searchRouter{
 	float: left;
