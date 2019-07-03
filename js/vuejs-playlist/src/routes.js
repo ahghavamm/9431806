@@ -11,5 +11,5 @@ export default[
     {path: '/register', component: register},
     {path: '/showBlogs', component: showBlogs},
     {path: '/resturants', component: resturantsList},
-    {path: '/resturants/eachResturant/:id', component: eachResturant},
+    {path: '/resturants/eachResturant/:_id', component: eachResturant},
 ]

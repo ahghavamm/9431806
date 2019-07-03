@@ -37,38 +37,23 @@
         
         <div class="resturantList">
             <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog">
-                <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
-                <div class='textOfProperitesOfResturantList'> 
-                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                        <h3>{{resturantDeatail.name}}</h3>
-                    </span>
-                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                        <p style='font-size:10px;color:black;'>{{resturantDeatail.averageRate}}</p>
-                        <span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span>
-                    </span>
-                    <p style='font-size:10px;'>{{blog.addressLine}}</p>
-                </div>
-                <div class="orderProperitesOfResturantList">
-                    <a href='#' class="order">شروع سفارش</a>
-                </div>
-            </div>
-            <!-- <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog">  -->
-                <!-- <img :src='' /> -->
-                <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" > -->
-                <!-- <div class='textOfProperitesOfResturantList'>  -->
-                    <!-- <h3 class='titleOfResturants'>{{ blog.city }}</h3> -->
-                    <!-- <p>{{ blog.body}}</p> -->
-                    <!-- <p  style='font-size:10px;color:black;'></p>
-                    <p></p>
-                    <p style='font-size:10px;'>{{ blog.addressLine }}</p>
-                </div>    -->
-                <!-- </router-link> -->
-                <!-- <router-link :to="'/resturants/eachResturant/' + blog.id" >
+                <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
+                    <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
+                    <div class='textOfProperitesOfResturantList'> 
+                        <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                            <h3>{{resturantDeatail.name}}</h3>
+                        </span>
+                        <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                            <p style='font-size:10px;color:black;'>{{resturantDeatail.averageRate}}</p>
+                            <span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span>
+                        </span>
+                        <p style='font-size:10px;'>{{blog.addressLine}}</p>
+                    </div>
                     <div class="orderProperitesOfResturantList">
                         <a href='#' class="order">شروع سفارش</a>
                     </div>
                 </router-link>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -442,6 +427,13 @@ p{
     height: 30%;
     margin-top:-18%;
     padding-top: 5%;
+    text-decoration: none;
+}
+.properitesOfResturantList .orderProperitesOfResturantList a{
+    text-decoration: none;
+}
+.resturantListRouter{
+    text-decoration: none;
 }
 .properitesOfResturantList:hover ~ .order{
     background-color:#d20f63;
@@ -457,6 +449,7 @@ p{
     padding-bottom: 2%;
     padding-right: 10%;
     padding-left: 10%;
+    text-decoration: none;
 }
 
 .foooter{
