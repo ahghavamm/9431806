@@ -6,7 +6,7 @@
     </div>
 
     <div class="numberOfResturants" id="numberOfResturantsInThisLocation">
-        <p> رستوران امکان سرویس دهی به <span class="nameOfQuery">{{$route.query.area}}</span> را دارند&nbsp;</p>
+        <p> <span v-for="(blog, i) in blogs" :key="(blog, i)"><span v-if="i == blogs.length-1 "> {{sumToIndex(i)}} </span></span>رستوران امکان سرویس دهی به <span class="nameOfQuery">{{$route.query.area}}</span> را دارند&nbsp;</p>
     </div>
 
     <div class="searchResturants">
@@ -20,39 +20,97 @@
             <p>فیلتر بر اساس نوع غذا</p>
             <input type="text" placeholder="جستوجوی دسته بندی غذاها" class="searchInCategory" v-model="search.searchOfCategories">
             <form>
-                <lable class="container" v-for="nameOfCategory in filteredCategories" :key="nameOfCategory">&nbsp;
-                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories"/>
+                <lable class="container" v-for="(nameOfCategory, i) in filteredCategories" :key="(nameOfCategory, i)">&nbsp;
+                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories" v-on:click="categoryQuery(nameOfCategory.name)" @change="changePositionOfCheckBox(i)" />
                 &nbsp; {{nameOfCategory.name}}
                 </lable>
 
                 <a href="#">بیشتر</a>
                 <ul>
-                    <li v-for="category in makeCategoryQuery" :key="category.id">{{category}}</li>
+                    <li v-for="category in search.categories" :key="category.id">{{category}}</li>
+                    <!-- <li>{{urlAddress}}</li> -->
                 </ul>   
             </form>
         </div>
 
-        
+
         <div class="resturantList">
-            <div class='properitesOfResturantList' v-for="blog in filteredResturants" :key="blog">
-                <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
-                    <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
-                    <div class='textOfProperitesOfResturantList'> 
-                        <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                            <h3>{{resturantDeatail.name}}</h3>
-                        </span>
-                        <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                            <p style='font-size:10px;color:black;'>{{resturantDeatail.averageRate}}</p>
-                            <span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span>
-                        </span>
-                        <p style='font-size:10px;'>{{blog.addressLine}}</p>
+            <div  v-for="blog in filteredResturants" :key="blog">
+                <div v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                    <div v-if="resturantDeatail.openingTime > moment().format('h')">
+                        <div class='properitesOfResturantList'>
+                            <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
+                                <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
+                                <div class='textOfProperitesOfResturantList'> 
+                                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                                        <h3 style="color:black;text-decoration:none;">{{resturantDeatail.name}}</h3>
+                                    </span>
+                                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                                        <p style='font-size:10px;color:orange;'>
+                                            <span v-if="resturantDeatail.averageRate < 5" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 4" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 3" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 2" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 1" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            &nbsp;
+                                            {{resturantDeatail.averageRate}}
+                                        </p>
+                                        <span v-for="categorie in resturantDeatail.categories" :key="categorie" style="color:black;text-decoration:none;">&#9679; {{categorie}} </span>
+                                    </span>
+                                    <p style='font-size:10px;color:#9b9b9b;'>{{blog.addressLine}}</p>
+                                </div>
+                                <div class="orderProperitesOfResturantList">
+                                    <a href='#' class="order">شروع سفارش</a>
+                                </div>
+                            </router-link>
+                        </div>
                     </div>
-                    <div class="orderProperitesOfResturantList">
-                        <a href='#' class="order">شروع سفارش</a>
-                    </div>
-                </router-link>
+                </div>
             </div>
         </div>
+        <div class="resturantList">
+            <div  v-for="blog in filteredResturants" :key="blog">
+                <div v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                    <div v-if="resturantDeatail.openingTime <= moment().format('h')">
+                        <h3 style="padding-top:20px;">رستوان های بسته</h3>
+                        <div class='properitesOfResturantList' id="resturantListClosed">
+                            <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
+                                <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
+                                <div class='textOfProperitesOfResturantList'> 
+                                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                                        <h3 style="color:black;text-decoration:none;">{{resturantDeatail.name}}</h3>
+                                    </span>
+                                    <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                                        <p style='font-size:10px;color:orange;'>
+                                            <span v-if="resturantDeatail.averageRate < 5" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 4" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 3" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 2" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            <span v-if="resturantDeatail.averageRate < 1" class="fa fa-star unchecked"></span>
+                                            <span v-else="" class="fa fa-star"></span>
+                                            &nbsp;
+                                            {{resturantDeatail.averageRate}}
+                                        </p>
+                                        <span v-for="categorie in resturantDeatail.categories" :key="categorie" style="color:black;text-decoration:none;">&#9679; {{categorie}} </span>
+                                    </span>
+                                    <p style='font-size:10px;color:#9b9b9b;'>{{blog.addressLine}}</p>
+                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
   </div>
@@ -61,28 +119,7 @@
 
 <script>
 import axios from 'axios';
-// import PostService from '../PostService';
-
-// const url = 'http://localhost:5000/api/resturants/'
-
-// class PostService {
-//     static getPosts(){
-//         return new Promise(async (resolve, reject) => {
-//             try {
-//                 const res = await axios.get(url);
-//                 const data = res.data;
-//                 resolve(
-//                     data.map(post => ({
-//                         ...post
-//                     }))
-//                 );
-//             } catch (err) {
-//                 reject(err);
-//             }
-//         })
-//     }
-// }
-
+var moment = require('moment');
 
 function Resize(){
     var num=10;
@@ -103,8 +140,11 @@ export default {
                 categories: [],
             },
             errors: [],
+            open: [],
             blogs: [],
             posts: [],
+            moment: moment,
+            urlAddress: '',
             nameOfCategories: [
                 {
                     "name":'برگر',
@@ -156,6 +196,7 @@ export default {
         .catch(e => {
         this.errors.push(e)
         })
+
     },
     computed: {
         filteredResturants: function(){
@@ -174,15 +215,39 @@ export default {
             });
         },
         // make query to server         checkbox category
-        makeCategoryQuery :function(){
-            return axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area + '&category=' + this.search.categories)
-                    .then(response => {
-                    this.blogs = response.data
-                    })
-                    .catch(e => {
-                    this.errors.push(e)
-                    })
-        }
+        // makeCategoryQuery :function(){
+        //     return axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area + '&category=' + this.search.categories)
+        //             .then(response => {
+        //             this.posts = response.data
+        //             })
+        //             .catch(e => {
+        //             this.errors.push(e)
+        //             })
+        // }
+    },
+    methods: {
+        categoryQuery: function(value){
+            if(this.search.categories != ""){
+                // axios.get(`http://localhost:4000/api/resturant/category?area=`+ this.$route.query.area + `&category=` + value)
+                //     .then(response => {
+                //     this.posts = response.data
+                //     })
+                //     .catch(e => {
+                //     this.errors.push(e)
+                //     })
+            }
+        },
+        sumToIndex: function(index){
+            return index+1;
+        },
+        // changePositionOfCheckBox: function(value){
+        //     var j=0;
+        //     for(j=0; j<this.nameOfCategories.length; j++){
+        //         this.nameOfCategories[j].name
+        //     }
+        //     this.nameOfCategories[0].name = this.nameOfCategories[i].name;
+        //     this.nameOfCategories[i].name = ;
+        // }
     },
   
 }
@@ -233,6 +298,9 @@ body {
     text-align: right;
     direction: rtl;
     background-color: #fafafa;
+}
+.unchecked{
+    color:black;
 }
 .nameOfQuery{
     text-decoration: underline;
@@ -320,6 +388,7 @@ body {
     border-bottom: 1px solid #e2e2e2;
     padding-top: 1%;
     padding-bottom: 1%;
+    width:180px;
 }
 .category lable:hover{
     background-color: #eeeeee;
@@ -372,17 +441,21 @@ input:checked[type= "checkbox"]:before{
     /*background-color: pink;*/
     float:left;
     width: 70%;
-    height: 300px;
+    height: 350px;
     margin-top:5%;
     margin-left: 5%;
     cursor:pointer;
+    text-decoration: none;
+}
+#resturantListClosed{
+    background-color: #f0f0f0;
 }
 p{
     margin:0;
 }
 .properitesOfResturantList{
     width:30%;
-    height: 60%;
+    height: 195px;
     background-color: white;
     border: 1px solid #e2e2e2;
     margin: 1.5%;
@@ -423,7 +496,7 @@ p{
     padding-right: 35%;
     background-color: #fafafa;
     height: 30%;
-    margin-top:-18%;
+    margin-top:-22%;
     padding-top: 5%;
     text-decoration: none;
 }
@@ -431,7 +504,7 @@ p{
     text-decoration: none;
 }
 .resturantListRouter{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .properitesOfResturantList:hover ~ .order{
     background-color:#d20f63;

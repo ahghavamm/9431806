@@ -13,7 +13,7 @@
                     <form class="searchForm" method="GET">
 						<router-link :to="'/resturants?area=' + searchArea" class="searchRouter w3-padding w3-xlarge w3-text-white" ><i class="fa fa-search"></i></router-link>
                         <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea" v-on:keyup="areaHint">
-                        <input type="text" class="searchOfCity btn dropdown-toggle" id="menu1" data-toggle="dropdown" value="تهران" >
+                        <input type="text" class="searchOfCity dropdown-toggle" id="menu1" data-toggle="dropdown" value="تهران" >
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="dropdownMenue">
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">تهران</a></li>
 							<li role="presentation" class="divider"></li>
@@ -412,7 +412,7 @@ export default {
   },
   methods: {
       areaHint: function(){
-		  axios.get(`http://localhost:4000/api/hint/`+ this.searchArea )
+		  axios.get(`http://localhost:4000/api/hint?areas=`+ this.searchArea )
 				.then(response => {
 				this.hints = response.data
 				})

@@ -14,17 +14,19 @@
             <div class="propertyOfResturant" v-for="resturantDeatail in post.resturantDeatails" :key="resturantDeatail">
                 <p style="font-size:24px;color:black;padding-top:-15px;">{{resturantDeatail.name}} </p>
                 <p style="color:orange;font-size:20px;padding-top:10px;">
-                    <span v-if="resturantDeatail.averageRate < 5" class="fa fa-star unchecked"></span>
+                    <span v-if="avg < 5" class="fa fa-star unchecked"></span>
                     <span v-else="" class="fa fa-star"></span>
-                    <span v-if="resturantDeatail.averageRate < 4" class="fa fa-star unchecked"></span>
+                    <span v-if="avg < 4" class="fa fa-star unchecked"></span>
                     <span v-else="" class="fa fa-star"></span>
-                    <span v-if="resturantDeatail.averageRate < 3" class="fa fa-star unchecked"></span>
+                    <span v-if="avg < 3" class="fa fa-star unchecked"></span>
                     <span v-else="" class="fa fa-star"></span>
-                    <span v-if="resturantDeatail.averageRate < 2" class="fa fa-star unchecked"></span>
+                    <span v-if="avg < 2" class="fa fa-star unchecked"></span>
                     <span v-else="" class="fa fa-star"></span>
-                    <span v-if="resturantDeatail.averageRate < 1" class="fa fa-star unchecked"></span>
+                    <span v-if="avg < 1" class="fa fa-star unchecked"></span>
                     <span v-else="" class="fa fa-star"></span>
-                    {{resturantDeatail.averageRate}} 
+                    <!-- {{resturantDeatail.averageRate}}  -->
+                    {{add()}}
+                    {{avg}}
                 </p>
                 <p class="categoryOfPropertyOfResturant"><span v-for="categorie in resturantDeatail.categories" :key="categorie">&#9679; {{categorie}} </span></p>
                 <p class="addressOfPropertyOfResturant">{{post.addressLine}}</p>
@@ -49,16 +51,37 @@
                     </span>
                 </div>
             </div>
-            <div class="food">
+            <div class="food" v-for="blog in blogs" :key="blog">
                 <a name="menueTab"></a>
-
-                <div v-for="blog in blogs" :key="blog">
-                    <p v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood">
-                        <span v-if="kindOfFood.visible = 'ture'">asdf</span>
-                    </p>
-                </div>
-
-                <div class="tableOfFood" v-for="blog in blogs" :key="blog">
+                    <div class="tableOfFood" v-for="category in blog.categories" :key="category">
+                        <div class="categorynameOfFood">{{category}}</div>
+                        <a href="#">
+                        <div  v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood">
+                            <div class="eachFood" v-if="kindOfFood.foodSet === category">
+                                <p id="name">{{kindOfFood.name}}</p>
+                                <div class="priceDiv"><p id="price">{{kindOfFood.price}} تومان</p></div>
+                                <p id="description"><br />{{kindOfFood.description}}</p>
+                                <div class="buyFood"><a href="#"><i class="fa fa-plus" style="font-size:10px;color:#d20f63"></i> افزودن به سبد خرید</a></div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                <!-- <div v-for="blog in blogs" :key="blog">
+                    <div  class="tableOfFood" v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood">
+                        
+                        <p class="foodSetOfFood" v-if="kindOfFood.visible">{{kindOfFood.foodSet}}</p>
+                        <a href="#">
+                        <div class="eachFood"  >
+                            <p id="name">{{kindOfFood.name}}</p>
+                            <div class="priceDiv"><p id="price">{{kindOfFood.price}} تومان</p></div>
+                            <p id="description"><br />{{kindOfFood.description}}</p>
+                            <div class="buyFood"><a href="#"><i class="fa fa-plus" style="font-size:10px;color:#d20f63"></i> افزودن به سبد خرید</a></div>
+                        </div>
+                        </a>
+                        
+                    </div>
+                </div> -->
+                <!-- <div class="tableOfFood" v-for="blog in blogs" :key="blog">
                     <div> 
                         <a href="#">
                         <div class="eachFood" v-for="kindOfFood in blog.kindsOfFood" :key="kindOfFood" >
@@ -69,17 +92,9 @@
                         </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-
-        <!-- <div class="searchResturantMenu" id="information">
-            <div class="titleOfInformation"></div>
-            <div class="">
-                <p><i class="fa fa-clock-o"></i></p>
-                <p><i class='fas fa-map-marker-alt'></i></p>
-            </div>
-        </div> -->
 
         <div class="inform">
             <a name="informationTab"></a>
@@ -98,17 +113,17 @@
             <div class="commentTitle"><h3>نظر کاربران در مورد {{comment.name}}</h3></div>
             <p class="anotherCommentTitle">شما می توانید بعد از سفارش از این رستوران، نظر خود را در باره ی این رستوران ثبت کنید.</p>
             <p class="starInComment">
-                <span v-if="comment.averageRate < 5" class="fa fa-star unchecked"></span>
+                <span v-if="avg < 5" class="fa fa-star unchecked"></span>
                 <span v-else="" class="fa fa-star"></span>
-                <span v-if="comment.averageRate < 4" class="fa fa-star unchecked"></span>
+                <span v-if="avg < 4" class="fa fa-star unchecked"></span>
                 <span v-else="" class="fa fa-star"></span>
-                <span v-if="comment.averageRate < 3" class="fa fa-star unchecked"></span>
+                <span v-if="avg < 3" class="fa fa-star unchecked"></span>
                 <span v-else="" class="fa fa-star"></span>
-                <span v-if="comment.averageRate < 2" class="fa fa-star unchecked"></span>
+                <span v-if="avg < 2" class="fa fa-star unchecked"></span>
                 <span v-else="" class="fa fa-star"></span>
-                <span v-if="comment.averageRate < 1" class="fa fa-star unchecked"></span>
+                <span v-if="avg < 1" class="fa fa-star unchecked"></span>
                 <span v-else="" class="fa fa-star"></span>
-                &nbsp;{{comment.averageRate}}
+                &nbsp;{{add()}} {{avg}}
             </p>
             <div class="qualityOfFoods">
                 <p>کیفیت غذا <span class="numOfQualityOfFoods">3.7</span></p>
@@ -128,7 +143,29 @@
             </div>
         </div>
 
-        <div class="eachOfClientComment" v-for="comment in comments" :key="comment">
+        <div class="eachOfClientComment" >
+            <div class="clientComment" v-for="cmt in cmts" :key="cmt"> 
+                <p>{{cmt.author}} 
+                    <span class="rateOfClientComment">
+                        &nbsp; {{cmt.quality}} &nbsp;
+                        <span v-if="cmt.quality < 5" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="cmt.quality < 4" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="cmt.quality < 3" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="cmt.quality < 2" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                        <span v-if="cmt.quality < 1" class="fa fa-star unchecked"></span>
+                        <span v-else="" class="fa fa-star"></span>
+                    </span>
+                </p>
+                <p class="textOfClientComment"><i class="fa fa-quote-right" style="font-size:18px; color:#d20f63;"></i> &nbsp;&nbsp; {{cmt.text}} </p>
+                <p style="font-size:10px;">{{moment(cmt.created_at).fromNow('d')}} روز قبل<span class="rateOfClientComment" style="color:#777777; font-size:10px;">گزارش</span></p>
+            </div>
+        </div>
+
+        <!-- <div class="eachOfClientComment" v-for="comment in comments" :key="comment">
             <div class="clientComment" v-for="commentPropertie in comment.commentProperties" :key="commentPropertie"> 
                 <p>{{commentPropertie.author}} 
                     <span class="rateOfClientComment">
@@ -146,16 +183,15 @@
                     </span>
                 </p>
                 <p class="textOfClientComment"><i class="fa fa-quote-right" style="font-size:18px; color:#d20f63;"></i> &nbsp;&nbsp; {{commentPropertie.text}} </p>
-                <p style="font-size:10px;"> روز قبل<span class="rateOfClientComment" style="color:#777777; font-size:10px;">گزارش</span></p>
+                <p style="font-size:10px;">{{moment(commentPropertie.created_at).fromNow('d')}} روز قبل<span class="rateOfClientComment" style="color:#777777; font-size:10px;">گزارش</span></p>
             </div>
-        </div>
-
+        </div> -->
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import moment from 'vue-moment';
+var moment = require('moment');
 
 export default {
     data () {
@@ -163,8 +199,19 @@ export default {
             id: this.$route.params._id ,
             blogs: [],
             posts:[],
+            cmts: [],
             comments: [],
+            averageRate: [],
+            moment: moment,
             searchMenue: '',
+            avg: 0,
+        }
+    },
+    methods: {
+        add: function(){
+            var final =this.averageRate.reduce((acc, item) => acc + item.quality, 0);
+            this.avg = final/this.averageRate.length;
+
         }
     },
     created() {
@@ -193,6 +240,26 @@ export default {
         .catch(e => {
             this.errors.push(e)
         })
+
+        //  comment
+        axios.get(`http://localhost:4000/api/resturant/`+ this.id + `/comment`)
+        .then(responses => {
+            this.cmts = responses.data;
+            this.averageRate = responses.data
+        })
+        .catch(e => {
+            this.errors.push(e)
+        })
+        
+        // averageRate
+        // axios.get(`http://localhost:4000/api/resturant/`+ this.id + `/comment`)
+        // .then(responses => {
+        //     this.averageRate = responses.data
+        // })
+        // .catch(e => {
+        //     this.errors.push(e)
+        // })
+
     },
 }
 </script>
@@ -315,9 +382,14 @@ body {
     height: 100%;
     float: right;
     padding-top: 2%;
+    color:#777777;
 }
 .menueInformatioComment .inMenueInformatioComment a{
     text-decoration: none;
+    color:#777777;
+}
+.menueInformatioComment .inMenueInformatioComment a::after{
+    border-bottom: 2px solid #d20f63;
 }
 
 .searchResturantMenu{
@@ -359,7 +431,7 @@ input[type= text]:focus{
 .mainDiv{
     width:80%;
     height: 600px;
-    background-color: #d20f63;
+    /* background-color: #d20f63; */
     margin-top: 47px;
 }
 .mainDiv .kindsOfFood{
@@ -379,6 +451,7 @@ input[type= text]:focus{
 }
 .mainDiv .kindsOfFood .eachOfKindsOfFodd a{
     text-decoration: none;
+    color: #9b9b9b;
 }
 .mainDiv .kindsOfFood .eachOfKindsOfFodd a::after{
     color: #202020;
@@ -387,20 +460,31 @@ input[type= text]:focus{
 }
 .mainDiv .food{
     width:75%;
-    background-color: aquamarine;
-    height: 120%;
+    /* background-color: aquamarine; */
+    height: 650px;
     float: left;
 }
 .mainDiv .food .tableOfFood{
     width: 100%;
-    height: 50%;
-    background-color: chartreuse;
+    height: 65%;
+    /* background-color: chartreuse; */
+}
+.mainDiv .food .categorynameOfFood{
+    width:100%;
+    padding-right: 40px;
+    color: black;
+    font-size: 18px;
+    padding-top: 20px;
+}
+.mainDiv .food .tableOfFood .foodSetOfFood{
+    text-align: right;
+    padding-right: 10px;
 }
 .mainDiv .food .tableOfFood .eachFood{
     width:44%;
-    height: 185px;
+    height: 175px;
     padding: 5px;
-    margin-top: 1%;
+    margin-top: 2%;
     margin-bottom: 1%;
     margin-right: 4%;
     float: right;
@@ -420,7 +504,7 @@ input[type= text]:focus{
 }
 .priceDiv{
     width:30%;
-    margin-top: -45px;
+    margin-top: -20px;
     float:left;
 }
 #price{
@@ -429,7 +513,7 @@ input[type= text]:focus{
     font-weight: bold;
 }
 #description{
-    
+    color: #9b9b9b;
 }
 .buyFood{
     width:45%;
@@ -446,12 +530,13 @@ input[type= text]:focus{
 }
 .buyFood a{
     text-decoration: none;
+    color:#d20f63;
 }
 .inform{
     width:60%;
     height: 450px;
     margin-right: 20%;
-    padding-top:10%;
+    padding-top:20%;
 }
 .inform .information{
     width:100%;
@@ -498,7 +583,7 @@ input[type= text]:focus{
     width:60%;
     height: 600px;
     margin-right: 20%;
-    padding-top:2%;
+    padding-top:10%;
     background-color: #fafafa;
 }
 .comment .commentTitle{

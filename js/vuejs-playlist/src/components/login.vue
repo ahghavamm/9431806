@@ -3,12 +3,12 @@
     
     <div class="main">
         <div class="reyhoonPhoto fixed" >
-            <a href="main.html"><img src="../../../../mocks/Screen Shot 1398-01-28 at 10.18.11.png"></a>
+            <a href="#"><img src="../../../../mocks/Screen Shot 1398-01-28 at 10.18.11.png"></a>
         </div>
         <div class="registerLogin">
             <ul>
-                <li><a href="#" id="logInNavigator"><i class="fa fa-sign-out" style="font-size:20px"></i>&nbsp;&nbsp;ورود</a></li>
-                <li><a href="#" id="singUpNavigator"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;ثبت نام</a></li>
+                <li><router-link to='/login' ><a href="#" id="logInNavigator"><i class="fa fa-sign-out" style="font-size:20px"></i>&nbsp;&nbsp;ورود</a></router-link></li>
+                <li><router-link to='/register'><a href="#" id="singUpNavigator"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;ثبت نام</a></router-link></li>
             </ul>
         </div>
         <div class="login">
@@ -83,32 +83,35 @@ body{
 	padding:0;
 	font-family:Shabnam;
 }
-/* @font-face {
-    font-family: Shabnam;
-    src: url('../../../../fonts/Shabnam.eot');
-    src: url('../../../../fonts/Shabnam.eot?#iefix') format('embedded-opentype'),
-    url('../../../../fonts/Shabnam.woff') format('woff'),
-    url('../../../../fonts/Shabnam.ttf') format('truetype');
-    font-weight: normal;
+@font-face {
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.ttf') format('truetype');
+  font-weight: normal;
 }
 
 @font-face {
-    font-family: Shabnam;
-    src: url('../../../../fonts/Shabnam-Bold.eot');
-    src: url('../../../../fonts/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
-    url('../../../../fonts/Shabnam-Bold.woff') format('woff'),
-    url('../../../../fonts/Shabnam-Bold.ttf') format('truetype');
-    font-weight: bold;
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Bold.ttf') format('truetype');
+  font-weight: bold;
 }
 
 @font-face {
-    font-family: Shabnam;
-    src: url('../../../../fonts/Shabnam-Light.eot');
-    src: url('../../../../fonts/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
-    url('../../../../fonts/Shabnam-Light.woff') format('woff'),
-    url('../../../../fonts/Shabnam-Light.ttf') format('truetype');
-    font-weight: 300;
-} */
+  font-family: Shabnam;
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot');
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff2') format('woff2'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.woff') format('woff'),
+       url('https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam-Light.ttf') format('truetype');
+  font-weight: 300;
+}
 body {
     margin: 0;
     font-family: Shabnam, fantasy;

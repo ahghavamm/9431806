@@ -3,12 +3,13 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var re
+var regex = require('regex');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var app = express();
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
+// app.use(regex());
 // app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
@@ -62,7 +63,6 @@ app.get('/api/resturant', (req, res) => {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("reyhoon");
-    var dbo1 = db.db("reyhoon");
 
     dbo.collection("address").aggregate(
       [
@@ -78,7 +78,7 @@ app.get('/api/resturant', (req, res) => {
             foreignField: 'address',
             as: 'resturantDeatails'
           }
-      }
+        },
       ]).toArray(function(err, resault){
         if (err) throw err;
         res.json(resault);
@@ -116,9 +116,47 @@ app.get('/api/resturant', (req, res) => {
   });
 });
 
-app.get('/api/hint', (req, res) => {
+app.get('/api/resturants', (req, res) => {
   //   $_GET["area"]
-  var query = req.query.areas;
+  var query = req.query.area;
+  var queryCategory = req.query.category;
+
+  console.log(req.query);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+
+    dbo.collection("resturant").aggregate(
+      [
+        {$lookup:
+          {
+            from: 'address',
+            localField: 'address',
+            foreignField: '_id',
+            as: 'resturantDeatails'
+          }
+        },
+        {
+          "$unwind": "$resturantDeatails"
+        },
+        {
+          $match:
+          {
+            "resturantDeatails.area": query
+          }
+        }
+      ]).toArray(function(err, resault){
+        if (err) throw err;
+        res.json(resault);
+        db.close();
+      });
+  });
+});
+
+app.get('/api/resturant/category', (req, res) => {
+  //   $_GET["area"]
+  var query = req.query.area;
+  var queryCategory = req.query.category;
 
   console.log(req.query);
   MongoClient.connect(url, function(err, db) {
@@ -126,11 +164,55 @@ app.get('/api/hint', (req, res) => {
     var dbo = db.db("reyhoon");
     var dbo1 = db.db("reyhoon");
 
-    dbo.collection("address").find({area: { query}).toArray(function(err, result) {
-          if (err) throw err;
-          console.log(result);
-          db.close();;
+    dbo.collection("address").aggregate(
+      [
+        {$match:
+          {
+            area: query
+          }
+        },
+        {$lookup:
+          {
+            from: 'resturant',
+            localField: '_id',
+            foreignField: 'address',
+            as: 'resturantDeatails'
+          }
+        },
+        {
+          "$unwind": "$resturantDeatails"
+        },
+        {
+          $match:
+          {
+            "resturantDeatails.categories": queryCategory
+          }
+        }
+      ]).toArray(function(err, resault){
+        if (err) throw err;
+        res.json(resault);
+        db.close();
+      });
+
   });
+});
+
+app.get('/api/hint', (req, res) => {
+  // var query = req.query.areas;
+
+  // console.log(req.query);
+  // MongoClient.connect(url, function(err, db) {
+  //   if (err) throw err;
+  //   var dbo = db.db("reyhoon");
+  //   var dbo1 = db.db("reyhoon");
+
+  //   dbo.collection("address").find({area: {'$regex': query}}).toArray(function(err, result) {
+  //         if (err) throw err;
+  //         res.json(result);
+  //         console.log(result);
+  //         db.close();;
+  //   });
+  // });
 });
 
 
@@ -240,31 +322,36 @@ app.get('/api/resturants/:id/averageRate', (req, res) => {
   console.log(req.params.id);
   const ObjectId = mongoose.Types.ObjectId;
 
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("reyhoon");
-  
-      dbo.collection("comment").aggregate(
-        [
-          {$match:
-            {
-              resturantId: ObjectId(query)
-            }
-          },
-          {$lookup:
-            {
-              from: 'resturant',
-              localField: 'resturantId',
-              foreignField: 'comments',
-              as: 'rateNumber'
-            }
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+
+    dbo.collection("comment").aggregate(
+      [
+        {$lookup:
+          {
+            from: 'resturant',
+            localField: '_id',
+            foreignField: 'comments',
+            as: 'resturantDetails'
+          }
+        },
+        {
+          "$unwind": "$resturantDetails"
+        },
+        {
+          $match:
+          {
+            "resturantDetails.address": ObjectId(query)
+          }
         }
-        ]).toArray(function(err, resault){
-          if (err) throw err;
-          res.json(resault);
-          db.close();
-        });
+      ]).toArray(function(err, resault){
+        if (err) throw err;
+        res.json(resault);
+        db.close();
       });
+
+  });
 });
 
 
@@ -292,6 +379,41 @@ app.get('/api/resturant/:id/comments', (req, res) => {
               as: 'commentProperties'
             }
         }
+        ]).toArray(function(err, resault){
+          if (err) throw err;
+          res.json(resault);
+          db.close();
+        });
+      });
+  
+});
+
+app.get('/api/resturant/:id/comment', (req, res) => {
+  var query = req.params.id;
+  console.log(req.params.id);
+  const ObjectId = mongoose.Types.ObjectId;
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("reyhoon");
+  
+      dbo.collection("comment").aggregate(
+        [
+          {
+            $match:
+            {
+              resturantId: ObjectId(query)
+            }
+          },
+          {
+            $lookup:
+            {
+              from: 'address',
+              localField: 'resturantId',
+              foreignField: '_id',
+              as: 'commentProperties'
+            }
+          }
         ]).toArray(function(err, resault){
           if (err) throw err;
           res.json(resault);
