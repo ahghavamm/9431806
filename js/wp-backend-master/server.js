@@ -450,7 +450,38 @@ app.post('/api/resturant/:id/comments', urlencodeParser, (req, res) => {
       resturantId: ObjectId(req.params.id)
     });
   });
+});
 
+app.post('/api/resturant', urlencodeParser, (req, res) => {
+  const ObjectId = mongoose.Types.ObjectId;
+  console.log(req.body);
+  // console.log(req.body.categories);
+  res.send({
+    type: 'post',
+    name: req.body.name,
+    logo: req.body.logo,
+    openingTime: req.body.openingTime,
+    closingTime: req.body.closingTime,
+    averageRate: req.body.averageRate,
+    address: req.body.address,
+    categories: req.body.categories,
+    foods: req.body.foods,
+  });
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+
+    dbo.collection("resturant").insert({
+      name: req.body.name,
+      logo: req.body.logo,
+      openingTime: req.body.openingTime,
+      closingTime: req.body.closingTime,
+      averageRate: req.body.averageRate,
+      address: ObjectId(req.body.address),
+      categories: [req.body.categories[0], req.body.categories[1], req.body.categories[2]],
+      foods: [ObjectId(req.body.foods[0]), ObjectId(req.body.foods[1]), ObjectId(req.body.foods[2])],
+    });
+  });
 });
 
 app.get('*', (req, res) => {

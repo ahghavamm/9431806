@@ -431,7 +431,7 @@ input[type= text]:focus{
 .mainDiv{
     width:80%;
     height: 600px;
-    /* background-color: #d20f63; */
+    /* background-color: #fafafa; */
     margin-top: 47px;
 }
 .mainDiv .kindsOfFood{
@@ -439,6 +439,7 @@ input[type= text]:focus{
     width:20%;
     height: 100%;
     float: right;
+    background-color: #fafafa;
 }
 .mainDiv .kindsOfFood .eachOfKindsOfFodd{
     border-right: 1px solid #4a4a4a;

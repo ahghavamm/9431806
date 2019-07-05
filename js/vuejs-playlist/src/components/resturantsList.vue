@@ -21,7 +21,7 @@
             <input type="text" placeholder="جستوجوی دسته بندی غذاها" class="searchInCategory" v-model="search.searchOfCategories">
             <form>
                 <lable class="container" v-for="(nameOfCategory, i) in filteredCategories" :key="(nameOfCategory, i)">&nbsp;
-                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories" v-on:click="categoryQuery(nameOfCategory.name)" @change="changePositionOfCheckBox(i)" />
+                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories" v-on:click="categoryQuery(nameOfCategory.name, $event)" @change="changePositionOfCheckBox(i)" />
                 &nbsp; {{nameOfCategory.name}}
                 </lable>
 
@@ -37,7 +37,7 @@
         <div class="resturantList">
             <div  v-for="blog in filteredResturants" :key="blog">
                 <div v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                    <div v-if="resturantDeatail.openingTime > moment().format('h')">
+                    <div v-if="resturantDeatail.openingTime < moment().format('H')">
                         <div class='properitesOfResturantList'>
                             <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
                                 <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
@@ -74,10 +74,10 @@
             </div>
         </div>
         <div class="resturantList">
+            <h3 style="padding-top:20px;">رستوان های بسته</h3>
             <div  v-for="blog in filteredResturants" :key="blog">
-                <div v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                    <div v-if="resturantDeatail.openingTime <= moment().format('h')">
-                        <h3 style="padding-top:20px;">رستوان های بسته</h3>
+                <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                    <span v-if="resturantDeatail.openingTime >= moment().format('H')">
                         <div class='properitesOfResturantList' id="resturantListClosed">
                             <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
                                 <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
@@ -106,11 +106,10 @@
                                 </div>
                             </router-link>
                         </div>
-                    </div>
-                </div>
+                    </span>
+                </span>
             </div>
         </div>
-
     </div>
 
   </div>
@@ -226,8 +225,12 @@ export default {
         // }
     },
     methods: {
-        categoryQuery: function(value){
-            if(this.search.categories != ""){
+        categoryQuery: function(value, event){
+            if(event.target.checked){
+                this.search.categories = '&category=' + this.search.categories;
+                alert( this.search.categories);
+            }
+            // if(this.search.categories != ""){
                 // axios.get(`http://localhost:4000/api/resturant/category?area=`+ this.$route.query.area + `&category=` + value)
                 //     .then(response => {
                 //     this.posts = response.data
@@ -235,19 +238,12 @@ export default {
                 //     .catch(e => {
                 //     this.errors.push(e)
                 //     })
-            }
+            // }
         },
         sumToIndex: function(index){
             return index+1;
         },
-        // changePositionOfCheckBox: function(value){
-        //     var j=0;
-        //     for(j=0; j<this.nameOfCategories.length; j++){
-        //         this.nameOfCategories[j].name
-        //     }
-        //     this.nameOfCategories[0].name = this.nameOfCategories[i].name;
-        //     this.nameOfCategories[i].name = ;
-        // }
+
     },
   
 }
