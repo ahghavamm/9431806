@@ -7,6 +7,8 @@ var regex = require('regex');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var app = express();
+// var Regex = require("regex");
+var chalk = require('chalk')
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 // app.use(regex());
@@ -119,15 +121,22 @@ app.get('/api/resturant', (req, res) => {
 app.get('/api/resturants', (req, res) => {
   //   $_GET["area"]
   var query = req.query.area;
-  var queryCategory = req.query.category;
+  // var queryCategory = req.query['category'];
 
   console.log(req.query);
+  // console.log(queryCategory);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("reyhoon");
 
     dbo.collection("resturant").aggregate(
       [
+        // {
+        //   $match:
+        //   {
+        //     categories: queryCategory
+        //   }
+        // },
         {$lookup:
           {
             from: 'address',
@@ -153,29 +162,53 @@ app.get('/api/resturants', (req, res) => {
   });
 });
 
-app.get('/api/resturant/category', (req, res) => {
-  //   $_GET["area"]
-  var query = req.query.area;
-  var queryCategory = req.query.category;
-
+app.get('/api/category', (req, res) => {
   console.log(req.query);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("reyhoon");
-    var dbo1 = db.db("reyhoon");
 
-    dbo.collection("address").aggregate(
+    dbo.collection("category").find().toArray(function(err, resault){
+        if (err) throw err;
+        res.json(resault);
+        db.close();
+      });
+  });
+});
+
+app.get('/api/resturants/category', (req, res) => {
+  //   $_GET["area"]
+  var query = req.query.area;
+  var queryCategory = req.query['category'];
+  var qqq = [];
+  // var queryCategory = req.query.category;
+  for(let t=0; t<queryCategory.length-1; t++){
+    qqq.push(queryCategory[t].replace(/,/g, ''));
+  }
+  // queryCategory.forEach(element => {
+  //   qqq.push(element.replace( /,/g, ''));
+  // });
+  console.log(qqq);
+  console.log(queryCategory);
+
+  // console.log(req.query);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+
+    dbo.collection("resturant").aggregate(
       [
-        {$match:
+        {
+          $match:
           {
-            area: query
+            categories: queryCategory 
           }
         },
         {$lookup:
           {
-            from: 'resturant',
-            localField: '_id',
-            foreignField: 'address',
+            from: 'address',
+            localField: 'address',
+            foreignField: '_id',
             as: 'resturantDeatails'
           }
         },
@@ -185,7 +218,7 @@ app.get('/api/resturant/category', (req, res) => {
         {
           $match:
           {
-            "resturantDeatails.categories": queryCategory
+            "resturantDeatails.area": query
           }
         }
       ]).toArray(function(err, resault){
@@ -193,26 +226,23 @@ app.get('/api/resturant/category', (req, res) => {
         res.json(resault);
         db.close();
       });
-
   });
 });
 
 app.get('/api/hint', (req, res) => {
-  // var query = req.query.areas;
+  var query = req.query.hint;
 
-  // console.log(req.query);
-  // MongoClient.connect(url, function(err, db) {
-  //   if (err) throw err;
-  //   var dbo = db.db("reyhoon");
-  //   var dbo1 = db.db("reyhoon");
+  console.log(req.query);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
 
-  //   dbo.collection("address").find({area: {'$regex': query}}).toArray(function(err, result) {
-  //         if (err) throw err;
-  //         res.json(result);
-  //         console.log(result);
-  //         db.close();;
-  //   });
-  // });
+    dbo.collection("address").find({area: {'$regex': query}}).toArray(function(err, result) {
+          if (err) throw err;
+          res.json(result);
+          db.close();;
+    });
+  });
 });
 
 

@@ -12,7 +12,7 @@
                 <div class="searchOfSearch">
                     <form class="searchForm" method="GET">
 						<router-link :to="'/resturants?area=' + searchArea" class="searchRouter w3-padding w3-xlarge w3-text-white" ><i class="fa fa-search"></i></router-link>
-                        <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea" v-on:keyup="areaHint">
+                        <input type="text" placeholder="مثلا نیاوران" name="area" v-model="searchArea" v-on:keyup="areaHint(searchArea)" @click="showMenue = !showMenue">
                         <input type="text" class="searchOfCity dropdown-toggle" id="menu1" data-toggle="dropdown" value="تهران" >
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="dropdownMenue">
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">تهران</a></li>
@@ -30,7 +30,17 @@
                         </div> -->
                     </form>
                 </div>
-                <h6><a href="#">آخرین جستوجو: تهران ، شیخ هادی ، چهاراه ولیعصر</a></h6>
+				<div class="hintBox" style="border-radios:10px;" v-if="showMenue">
+					<p>جستجو خودکار محله ی شما</p>
+				</div>
+				<!-- <div v-if="showMenue"> -->
+					<div class="hintBox" v-for="(hint, i) in hints" :key="(hint, i)" style="border-bottom:1px solid black;" >
+						<router-link :to="'/resturants?area=' + hint.area">
+							<p><span>{{hint.area}}</span></p>
+						</router-link>
+					</div>
+				<!-- </div> -->
+                <h6><a href="#">آخرین جستوجو: تهران، چهاراه ولیعصر</a></h6>
             </div>
         </div>
     </div>
@@ -407,19 +417,20 @@ export default {
     return {
 		blogs:[],
 		searchArea: '',
-		hints:[]
+		hints:[],
+		showMenue: false,
     }
   },
   methods: {
-      areaHint: function(){
-		  axios.get(`http://localhost:4000/api/hint?areas=`+ this.searchArea )
+      areaHint: function(value){
+		  axios.get(`http://localhost:4000/api/hint?hint=`+  value)
 				.then(response => {
 				this.hints = response.data
 				})
 				.catch(e => {
 				this.errors.push(e)
 				})
-	  }
+	  },
   },
 //   created() {
 // 	  this.$http.get('http://localhost:8888/php/webClass/9431806/php/backupMyPhp.php?area=');
@@ -517,6 +528,18 @@ body {
 	border-radius:5px;	
 	padding:1.5%;
 	background-color:white;
+}
+.hintBox{
+	width: 430px;
+	height: 50px;
+	margin-left: 70px;
+	margin-top: -10px;
+	background-color: white;
+	color:#727b82;
+	float:left;
+	text-align: right;
+	padding-right: 50px;
+	padding-top: 15px;
 }
 .searchOfSearch #dropdownMenue{
 	margin-top: -131px;
@@ -625,7 +648,7 @@ form.searchForm input[type=text].searchOfCity{
 }
 .boxInfroramtion .informationBoxInformation img{
 	float:right;
-	width:25%;
+	width:18%;
 	padding-top:-2%;
 }
 .boxInfroramtion .informationBoxInformation p{

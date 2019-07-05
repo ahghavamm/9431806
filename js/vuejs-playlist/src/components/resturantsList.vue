@@ -21,23 +21,26 @@
             <input type="text" placeholder="جستوجوی دسته بندی غذاها" class="searchInCategory" v-model="search.searchOfCategories">
             <form>
                 <lable class="container" v-for="(nameOfCategory, i) in filteredCategories" :key="(nameOfCategory, i)">&nbsp;
-                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories" v-on:click="categoryQuery(nameOfCategory.name, $event)" @change="changePositionOfCheckBox(i)" />
+                <input type="checkbox" :name="nameOfCategory.category_name" :value="nameOfCategory.name" v-model="search.categories" v-on:click="categoryQuery(search.categories, $event)" />
                 &nbsp; {{nameOfCategory.name}}
                 </lable>
 
                 <a href="#">بیشتر</a>
-                <ul>
-                    <li v-for="category in search.categories" :key="category.id">{{category}}</li>
+            
+                <!-- <ul>
+                    <li v-for="category in search.categories" :key="category.id">{{category}}</li> -->
                     <!-- <li>{{urlAddress}}</li> -->
-                </ul>   
+                <!-- </ul>    -->
             </form>
         </div>
 
-
+        <span v-for="category in search.categories" :key="category">{{convertToString(category)}} <span>{{convertedString}}</span></span>
+        <p>{{search.categories}}</p>
+        
         <div class="resturantList">
             <div  v-for="blog in filteredResturants" :key="blog">
                 <div v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                    <div v-if="resturantDeatail.openingTime < moment().format('H')">
+                    <div v-if="resturantDeatail.openingTime <= moment().format('H')">
                         <div class='properitesOfResturantList'>
                             <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
                                 <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
@@ -74,10 +77,14 @@
             </div>
         </div>
         <div class="resturantList">
-            <h3 style="padding-top:20px;">رستوان های بسته</h3>
+            <span v-for="blog in filteredResturants" :key="blog">
+                <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+                    <h3 v-if="resturantDeatail.openingTime > moment().format('H')" style="padding-top:20px;">رستوان های بسته</h3>
+                </span>
+            </span>
             <div  v-for="blog in filteredResturants" :key="blog">
                 <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
-                    <span v-if="resturantDeatail.openingTime >= moment().format('H')">
+                    <span v-if="resturantDeatail.openingTime > moment().format('H')">
                         <div class='properitesOfResturantList' id="resturantListClosed">
                             <router-link :to="'/resturants/eachResturant/' + blog._id" class="resturantListRouter">
                                 <span  v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail"><img :src="resturantDeatail.logo" /></span>
@@ -136,61 +143,71 @@ export default {
             search: {
                 nameOfResturant: '',
                 searchOfCategories: '',
-                categories: [],
+                categories: ['&category='],
             },
             errors: [],
             open: [],
             blogs: [],
             posts: [],
+            convertedString: '',
             moment: moment,
             urlAddress: '',
             nameOfCategories: [
-                {
-                    "name":'برگر',
-                    "category_name": 'category_0'
-                },
-                {
-                    "name":'خورشت',
-                    "category_name": 'category_1'
-                },
-                {
-                    "name":'سالاد',
-                    "category_name": 'category_2'
-                },
-                {
-                    "name":'ساندویچ',
-                    "category_name": 'category_3'
-                },
-                {
-                    "name":'سوشی',
-                    "category_name": 'category_4'
-                },
-                {
-                    "name":'غذای ایرانی',
-                    "category_name": 'category_5'
-                },
-                {
-                    "name":'فست فود',
-                    "category_name": 'category_6'
-                },
-                {
-                    "name":'پاستا',
-                    "category_name": 'category_7'
-                },
-                {
-                    "name":'پیتزا',
-                    "category_name": 'category_8'
-                },
-                {
-                    "name":'کباب',
-                    "category_name": 'category_9'
-                }],
+                // {
+                //     "name":'برگر',
+                //     "category_name": 'category_0'
+                // },
+                // {
+                //     "name":'خورشت',
+                //     "category_name": 'category_1'
+                // },
+                // {
+                //     "name":'سالاد',
+                //     "category_name": 'category_2'
+                // },
+                // {
+                //     "name":'ساندویچ',
+                //     "category_name": 'category_3'
+                // },
+                // {
+                //     "name":'سوشی',
+                //     "category_name": 'category_4'
+                // },
+                // {
+                //     "name":'غذای ایرانی',
+                //     "category_name": 'category_5'
+                // },
+                // {
+                //     "name":'فست فود',
+                //     "category_name": 'category_6'
+                // },
+                // {
+                //     "name":'پاستا',
+                //     "category_name": 'category_7'
+                // },
+                // {
+                //     "name":'پیتزا',
+                //     "category_name": 'category_8'
+                // },
+                // {
+                //     "name":'کباب',
+                //     "category_name": 'category_9'
+                // }
+                ],
         }
     }, 
     created() {
         axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area )
         .then(response => {
         this.blogs = response.data
+        })
+        .catch(e => {
+        this.errors.push(e)
+        })
+
+        axios.get(`http://localhost:4000/api/category`)
+        .then(response => {
+        this.nameOfCategories = response.data
         })
         .catch(e => {
         this.errors.push(e)
@@ -213,32 +230,33 @@ export default {
                 return nameOfCategory.name.match(this.search.searchOfCategories)
             });
         },
-        // make query to server         checkbox category
-        // makeCategoryQuery :function(){
-        //     return axios.get(`http://localhost:4000/api/resturant?area=`+ this.$route.query.area + '&category=' + this.search.categories)
-        //             .then(response => {
-        //             this.posts = response.data
-        //             })
-        //             .catch(e => {
-        //             this.errors.push(e)
-        //             })
-        // }
     },
     methods: {
         categoryQuery: function(value, event){
             if(event.target.checked){
-                this.search.categories = '&category=' + this.search.categories;
-                alert( this.search.categories);
-            }
-            // if(this.search.categories != ""){
-                // axios.get(`http://localhost:4000/api/resturant/category?area=`+ this.$route.query.area + `&category=` + value)
+                this.search.categories.push('&category=');
+
+                // axios.get(`http://localhost:4000/api/category`)
                 //     .then(response => {
-                //     this.posts = response.data
+                //     this.nameOfCategories = response.data
                 //     })
                 //     .catch(e => {
                 //     this.errors.push(e)
                 //     })
-            // }
+                
+                axios.get(`http://localhost:4000/api/resturants/category?area=`+ this.$route.query.area + this.search.categories)
+                    .then(response => {
+                    this.posts = response.data
+                    })
+                    .catch(e => {
+                    this.errors.push(e)
+                    })
+                // alert( this.search.categories);
+            }
+        },
+        convertToString: function(value){
+            this.convertedString = value;
+            // return value;
         },
         sumToIndex: function(index){
             return index+1;
