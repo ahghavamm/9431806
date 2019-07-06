@@ -423,7 +423,7 @@ export default {
   },
   methods: {
       areaHint: function(value){
-		  axios.get(`http://localhost:4000/api/hint?hint=`+  value)
+		  axios.get(`http://localhost:4000/api/hintt?hint=`+  value)
 				.then(response => {
 				this.hints = response.data
 				})

@@ -245,6 +245,39 @@ app.get('/api/hint', (req, res) => {
   });
 });
 
+app.get('/api/hintt', (req, res) => {
+  var query = req.query.hint;
+
+  console.log(req.query);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("reyhoon");
+
+    // area: {'$regex': query}
+    dbo.collection("location").aggregate(
+      [
+        {
+          $match:
+          {
+            area: {'$regex': query}
+          }
+        },
+        {$lookup:
+          {
+            from: 'address',
+            localField: 'area',
+            foreignField: 'area',
+            as: 'resturantDeatails'
+          }
+        }
+      ]).toArray(function(err, result) {
+          if (err) throw err;
+          res.json(result);
+          db.close();;
+    });
+  });
+});
+
 
 app.get('/api/resturant/:id', (req, res) => {
   var query = req.params.id;
