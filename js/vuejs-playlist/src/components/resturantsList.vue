@@ -77,11 +77,12 @@
             </div>
         </div>
         <div class="resturantList">
-            <span v-for="blog in filteredResturants" :key="blog">
-                <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
+            <h3 v-for="(blog, i) in bblogs" :key="(blog, i)" v-show="blog.openingTime > moment().format('H')" style="padding-top:20px;"><span v-if="numb[i]">{{closeResturant}}</span></h3>
+            <!-- <span v-for="blog in filteredResturants" :key="blog">
+                <span v-for="(resturantDeatail, i) in blog.resturantDeatails" :key="(resturantDeatail, i)">
                     <h3 v-if="resturantDeatail.openingTime > moment().format('H')" style="padding-top:20px;">رستوان های بسته</h3>
                 </span>
-            </span>
+            </span> -->
             <div  v-for="blog in filteredResturants" :key="blog">
                 <span v-for="resturantDeatail in blog.resturantDeatails" :key="resturantDeatail">
                     <span v-if="resturantDeatail.openingTime > moment().format('H')">
@@ -148,7 +149,10 @@ export default {
             errors: [],
             open: [],
             blogs: [],
+            bblogs: [],
             posts: [],
+            closeResturant: 'رستوان های بسته',
+            numb: [true, false, false, false, false],
             convertedString: '',
             moment: moment,
             urlAddress: '',
@@ -213,6 +217,14 @@ export default {
         this.errors.push(e)
         })
 
+        axios.get(`http://localhost:4000/api/resturants?area=`+ this.$route.query.area )
+        .then(response => {
+        this.bblogs = response.data
+        })
+        .catch(e => {
+        this.errors.push(e)
+        })
+
     },
     computed: {
         filteredResturants: function(){
@@ -230,6 +242,7 @@ export default {
                 return nameOfCategory.name.match(this.search.searchOfCategories)
             });
         },
+        
     },
     methods: {
         categoryQuery: function(value, event){
@@ -261,7 +274,14 @@ export default {
         sumToIndex: function(index){
             return index+1;
         },
-
+        callCloseResturnat: function(value){
+            if(this.numb === true){
+                
+                return this.closeResturant;
+                this.numb = value;
+                // this.numb = false;
+            }
+        },
     },
   
 }
